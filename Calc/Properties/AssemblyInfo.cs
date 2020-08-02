@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Calc")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Casasoft Calc")]
+[assembly: AssemblyDescription("TI 58/58C/59 like calculator")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Calc")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCompany("Casasoft")]
+[assembly: AssemblyProduct("Casasoft Calc")]
+[assembly: AssemblyCopyright("Copyright ©  2020 Roberto Ceccarelli - Casasoft")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

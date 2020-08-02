@@ -36,6 +36,73 @@ namespace Casasoft.Calc
             SecondFunction = false;
         }
 
+
+        private void CalcForm_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case '0':
+                    CommonClickHandler(0);
+                    break;
+                case '1':
+                    CommonClickHandler(1);
+                    break;
+                case '2':
+                    CommonClickHandler(2);
+                    break;
+                case '3':
+                    CommonClickHandler(3);
+                    break;
+                case '4':
+                    CommonClickHandler(4);
+                    break;
+                case '5':
+                    CommonClickHandler(5);
+                    break;
+                case '6':
+                    CommonClickHandler(6);
+                    break;
+                case '7':
+                    CommonClickHandler(7);
+                    break;
+                case '8':
+                    CommonClickHandler(8);
+                    break;
+                case '9':
+                    CommonClickHandler(9);
+                    break;
+
+                case '+':
+                    CommonClickHandler(85);
+                    break;
+                case '-':
+                    CommonClickHandler(75);
+                    break;
+                case '*':
+                    CommonClickHandler(65);
+                    break;
+                case '/':
+                    CommonClickHandler(55);
+                    break;
+                case '^':
+                    CommonClickHandler(45);
+                    break;
+                case '=':
+                    CommonClickHandler(95);
+                    break;
+                case '(':
+                    CommonClickHandler(53);
+                    break;
+                case ')':
+                    CommonClickHandler(54);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        #region click handlers
         private void CommonClickHandler(int key)
         {
             CalcEngine.EnterKey(Convert.ToByte(key));
@@ -167,5 +234,8 @@ namespace Casasoft.Calc
         {
             CommonClickHandler(SecondFunction ? 28 : 23);
         }
+
+        #endregion
+
     }
 }
