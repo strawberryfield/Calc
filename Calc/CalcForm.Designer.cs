@@ -398,6 +398,7 @@ namespace Casasoft.Calc
             this.btnInverse.TabIndex = 23;
             this.btnInverse.Text = "1/x";
             this.btnInverse.UseVisualStyleBackColor = false;
+            this.btnInverse.Click += new System.EventHandler(this.btnInverse_Click);
             // 
             // lblInverse
             // 
@@ -563,6 +564,7 @@ namespace Casasoft.Calc
             this.btnSqrt.TabIndex = 38;
             this.btnSqrt.Text = "√x";
             this.btnSqrt.UseVisualStyleBackColor = false;
+            this.btnSqrt.Click += new System.EventHandler(this.btnSqrt_Click);
             // 
             // lblSquare
             // 
@@ -585,6 +587,7 @@ namespace Casasoft.Calc
             this.btnSquare.TabIndex = 40;
             this.btnSquare.Text = "x²";
             this.btnSquare.UseVisualStyleBackColor = false;
+            this.btnSquare.Click += new System.EventHandler(this.btnSquare_Click);
             // 
             // lblXT
             // 
@@ -607,6 +610,7 @@ namespace Casasoft.Calc
             this.btnXT.TabIndex = 42;
             this.btnXT.Text = "x⇌t";
             this.btnXT.UseVisualStyleBackColor = false;
+            this.btnXT.Click += new System.EventHandler(this.btnXT_Click);
             // 
             // lblLRN
             // 
@@ -629,6 +633,7 @@ namespace Casasoft.Calc
             this.btnLRN.TabIndex = 44;
             this.btnLRN.Text = "LRN";
             this.btnLRN.UseVisualStyleBackColor = false;
+            this.btnLRN.Click += new System.EventHandler(this.btnLRN_Click);
             // 
             // lblA
             // 
@@ -651,6 +656,7 @@ namespace Casasoft.Calc
             this.btnA.TabIndex = 54;
             this.btnA.Text = "A";
             this.btnA.UseVisualStyleBackColor = false;
+            this.btnA.Click += new System.EventHandler(this.btnA_Click);
             // 
             // lblB
             // 
@@ -673,6 +679,7 @@ namespace Casasoft.Calc
             this.btnB.TabIndex = 52;
             this.btnB.Text = "B";
             this.btnB.UseVisualStyleBackColor = false;
+            this.btnB.Click += new System.EventHandler(this.btnB_Click);
             // 
             // lblC
             // 
@@ -695,6 +702,7 @@ namespace Casasoft.Calc
             this.btnC.TabIndex = 50;
             this.btnC.Text = "C";
             this.btnC.UseVisualStyleBackColor = false;
+            this.btnC.Click += new System.EventHandler(this.btnC_Click);
             // 
             // lblD
             // 
@@ -718,6 +726,7 @@ namespace Casasoft.Calc
             this.btnD.TabIndex = 48;
             this.btnD.Text = "D";
             this.btnD.UseVisualStyleBackColor = false;
+            this.btnD.Click += new System.EventHandler(this.btnD_Click);
             // 
             // lblE
             // 
@@ -740,6 +749,7 @@ namespace Casasoft.Calc
             this.btnE.TabIndex = 46;
             this.btnE.Text = "E";
             this.btnE.UseVisualStyleBackColor = false;
+            this.btnE.Click += new System.EventHandler(this.btnE_Click);
             // 
             // CalcForm
             // 

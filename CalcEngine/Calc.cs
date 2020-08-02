@@ -25,7 +25,7 @@ namespace Casasoft.Calc
 {
     public class Calc
     {
-        private enum Operands { Plus, Minus, Times, Div, Exponent}
+        private enum Operands { Plus, Minus, Times, Div, Exponent }
 
         private class AritmeticStackItem
         {
@@ -45,6 +45,9 @@ namespace Casasoft.Calc
         private int BracketLevel;
 
         private bool InverseFunction;
+        private enum AngleUnits { Deg, Rad, Grad }
+        private AngleUnits TrigMode;
+        private double t;
 
         public List<decimal> Memories;
         public List<byte> Steps;
@@ -57,6 +60,8 @@ namespace Casasoft.Calc
             AritmeticStack = new Stack<AritmeticStackItem>();
             BracketLevel = 0;
             InverseFunction = false;
+            TrigMode = AngleUnits.Rad;
+            t = 0;
             Display = new Display();
         }
 
@@ -102,6 +107,12 @@ namespace Casasoft.Calc
                         processOperator(Operands.Exponent, BracketLevel + 3);
                         break;
 
+                    case 32:
+                        double tmp = t;
+                        t = Display.GetValue();
+                        Display.SetValue(tmp);
+                        break;
+
                     // Brackets
                     case 53:
                         BracketLevel += 10;
@@ -111,16 +122,54 @@ namespace Casasoft.Calc
                         BracketLevel -= 10;
                         break;
 
+                    // Angular units
+                    case 60:
+                        TrigMode = AngleUnits.Deg;
+                        break;
+                    case 70:
+                        TrigMode = AngleUnits.Rad;
+                        break;
+                    case 80:
+                        TrigMode = AngleUnits.Grad;
+                        break;
+
                     //Functions
                     case 23:
-                        Display.SetValue(InverseFunction ? 
+                        Display.SetValue(InverseFunction ?
                             Math.Exp(Display.GetValue()) : Math.Log(Display.GetValue()));
                         break;
                     case 28:
-                        Display.SetValue(InverseFunction ? 
-                            Math.Pow(10, Display.GetValue()) : Math.Log(Display.GetValue(),10));
+                        Display.SetValue(InverseFunction ?
+                            Math.Pow(10, Display.GetValue()) : Math.Log(Display.GetValue(), 10));
+                        break;
+                    case 33:
+                        Display.SetValue(Display.GetValue() * Display.GetValue());
+                        break;
+                    case 34:
+                        Display.SetValue(Math.Sqrt(Display.GetValue()));
+                        break;
+                    case 35:
+                        Display.SetValue(1 / Display.GetValue());
+                        break;
+                    case 50:
+                        Display.SetValue(Math.Abs(Display.GetValue()));
                         break;
 
+                    case 38:
+                        Display.SetValue(InverseFunction ?
+                            rad2AngularUnit(Math.Asin(Display.GetValue())) :
+                            Math.Sin(AngularUnit2rad(Display.GetValue())));
+                        break;
+                    case 39:
+                        Display.SetValue(InverseFunction ?
+                            rad2AngularUnit(Math.Acos(Display.GetValue())) :
+                            Math.Cos(AngularUnit2rad(Display.GetValue())));
+                        break;
+                    case 30:
+                        Display.SetValue(InverseFunction ?
+                            rad2AngularUnit(Math.Atan(Display.GetValue())) :
+                            Math.Tan(AngularUnit2rad(Display.GetValue())));
+                        break;
                     default:
                         break;
                 }
@@ -136,11 +185,19 @@ namespace Casasoft.Calc
             }
         }
 
+        private double AngularUnit2rad(double a) =>
+            TrigMode == AngleUnits.Rad ? a :
+            a / (TrigMode == AngleUnits.Deg ? 180 : 200) * Math.PI;
+
+        private double rad2AngularUnit(double a) =>
+            TrigMode == AngleUnits.Rad ? a :
+            a * (TrigMode == AngleUnits.Deg ? 180 : 200) / Math.PI;
+
         private void processOperator(Operands op, int priority)
         {
-            if(AritmeticStack.Count > 0)
+            if (AritmeticStack.Count > 0)
             {
-                if(AritmeticStack.Peek().Priority >= priority)
+                if (AritmeticStack.Peek().Priority >= priority)
                 {
                     processStack();
                 }

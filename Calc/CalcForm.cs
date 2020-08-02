@@ -41,6 +41,7 @@ namespace Casasoft.Calc
         {
             switch (e.KeyChar)
             {
+                // Numbers
                 case '0':
                     CommonClickHandler(0);
                     break;
@@ -72,6 +73,7 @@ namespace Casasoft.Calc
                     CommonClickHandler(9);
                     break;
 
+                // Operators
                 case '+':
                     CommonClickHandler(85);
                     break;
@@ -95,6 +97,38 @@ namespace Casasoft.Calc
                     break;
                 case ')':
                     CommonClickHandler(54);
+                    break;
+
+                // User defined keys
+                case 'a':
+                    CommonClickHandler(11);
+                    break;
+                case 'b':
+                    CommonClickHandler(12);
+                    break;
+                case 'c':
+                    CommonClickHandler(13);
+                    break;
+                case 'd':
+                    CommonClickHandler(14);
+                    break;
+                case 'e':
+                    CommonClickHandler(15);
+                    break;
+                case 'A':
+                    CommonClickHandler(16);
+                    break;
+                case 'B':
+                    CommonClickHandler(17);
+                    break;
+                case 'C':
+                    CommonClickHandler(18);
+                    break;
+                case 'D':
+                    CommonClickHandler(19);
+                    break;
+                case 'E':
+                    CommonClickHandler(10);
                     break;
 
                 default:
@@ -122,107 +156,107 @@ namespace Casasoft.Calc
 
         private void btn1_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(1);
+            CommonClickHandler(SecondFunction ? 87 : 1);
         }
 
         private void btn2_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(2);
+            CommonClickHandler(SecondFunction ? 88 : 2);
         }
 
         private void btn3_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(3);
+            CommonClickHandler(SecondFunction ? 89 : 3);
         }
 
         private void btn4_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(4);
+            CommonClickHandler(SecondFunction ? 77 : 4);
         }
 
         private void btn5_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(5);
+            CommonClickHandler(SecondFunction ? 78 : 5);
         }
 
         private void btn6_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(6);
+            CommonClickHandler(SecondFunction ? 79 : 6);
         }
 
         private void btn7_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(7);
+            CommonClickHandler(SecondFunction ? 67 : 7);
         }
 
         private void btn8_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(8);
+            CommonClickHandler(SecondFunction ? 68 : 8);
         }
 
         private void btn9_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(9);
+            CommonClickHandler(SecondFunction ? 69 : 9);
         }
 
         private void btn0_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(0);
+            CommonClickHandler(SecondFunction ? 97 : 0);
         }
 
         private void btnCHS_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(94);
+            CommonClickHandler(SecondFunction ? 99 : 94);
         }
 
         private void btnDot_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(93);
+            CommonClickHandler(SecondFunction ? 98 : 93);
         }
 
         private void btnEqual_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(95);
+            CommonClickHandler(SecondFunction ? 90 : 95);
         }
 
         private void btnPlus_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(85);
+            CommonClickHandler(SecondFunction ? 80 : 85);
         }
 
         private void btnMinus_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(75);
+            CommonClickHandler(SecondFunction ? 70 : 75);
         }
 
         private void btnTimes_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(65);
+            CommonClickHandler(SecondFunction ? 60 : 65);
         }
 
         private void btnDivide_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(55);
+            CommonClickHandler(SecondFunction ? 50 : 55);
         }
 
         private void btnCE_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(24);
+            CommonClickHandler(SecondFunction ? 29 : 24);
         }
 
         private void btnExp_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(45);
+            CommonClickHandler(SecondFunction ? 40 : 45);
         }
 
         private void btnOpen_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(53);
+            CommonClickHandler(SecondFunction ? 58 : 53);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            CommonClickHandler(54);
+            CommonClickHandler(SecondFunction ? 59 : 54);
         }
 
         private void btnINV_Click(object sender, EventArgs e)
@@ -235,6 +269,56 @@ namespace Casasoft.Calc
             CommonClickHandler(SecondFunction ? 28 : 23);
         }
 
+
+        private void btnA_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 11 : 16);
+        }
+
+        private void btnB_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 12 : 17);
+        }
+
+        private void btnC_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 13 : 18);
+        }
+
+        private void btnD_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 14 : 19);
+        }
+
+        private void btnE_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 15 : 10);
+        }
+
+        private void btnLRN_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 36 : 31);
+        }
+
+        private void btnXT_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 37 : 32);
+        }
+
+        private void btnSquare_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 38 : 33);
+        }
+
+        private void btnSqrt_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 39 : 34);
+        }
+
+        private void btnInverse_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 30 : 35);
+        }
         #endregion
 
     }
