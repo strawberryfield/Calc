@@ -105,6 +105,38 @@ namespace Casasoft.Calc
             this.btnD = new System.Windows.Forms.Button();
             this.lblE = new System.Windows.Forms.Label();
             this.btnE = new System.Windows.Forms.Button();
+            this.lblClose = new System.Windows.Forms.Label();
+            this.lblOpen = new System.Windows.Forms.Label();
+            this.lblEE = new System.Windows.Forms.Label();
+            this.btnEE = new System.Windows.Forms.Button();
+            this.lblSTO = new System.Windows.Forms.Label();
+            this.btnlSTO = new System.Windows.Forms.Button();
+            this.lblRCL = new System.Windows.Forms.Label();
+            this.lblSUM = new System.Windows.Forms.Label();
+            this.btnRCL = new System.Windows.Forms.Button();
+            this.btnSUM = new System.Windows.Forms.Button();
+            this.lbl0 = new System.Windows.Forms.Label();
+            this.lblDot = new System.Windows.Forms.Label();
+            this.lblCHS = new System.Windows.Forms.Label();
+            this.lbl1 = new System.Windows.Forms.Label();
+            this.lbl2 = new System.Windows.Forms.Label();
+            this.lbl3 = new System.Windows.Forms.Label();
+            this.lbl4 = new System.Windows.Forms.Label();
+            this.lbl5 = new System.Windows.Forms.Label();
+            this.lbl6 = new System.Windows.Forms.Label();
+            this.lbl7 = new System.Windows.Forms.Label();
+            this.lbl8 = new System.Windows.Forms.Label();
+            this.lbl9 = new System.Windows.Forms.Label();
+            this.lblSST = new System.Windows.Forms.Label();
+            this.btnSST = new System.Windows.Forms.Button();
+            this.lblBST = new System.Windows.Forms.Label();
+            this.btnBST = new System.Windows.Forms.Button();
+            this.lblSBR = new System.Windows.Forms.Label();
+            this.btnSBR = new System.Windows.Forms.Button();
+            this.lblRST = new System.Windows.Forms.Label();
+            this.btnRST = new System.Windows.Forms.Button();
+            this.lblGTO = new System.Windows.Forms.Label();
+            this.btnGTO = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnCHS
@@ -439,7 +471,7 @@ namespace Casasoft.Calc
             // 
             // lblMinus
             // 
-            this.lblMinus.Location = new System.Drawing.Point(215, 274);
+            this.lblMinus.Location = new System.Drawing.Point(215, 272);
             this.lblMinus.Name = "lblMinus";
             this.lblMinus.Size = new System.Drawing.Size(45, 12);
             this.lblMinus.TabIndex = 28;
@@ -448,7 +480,7 @@ namespace Casasoft.Calc
             // 
             // lblPlus
             // 
-            this.lblPlus.Location = new System.Drawing.Point(216, 309);
+            this.lblPlus.Location = new System.Drawing.Point(216, 308);
             this.lblPlus.Name = "lblPlus";
             this.lblPlus.Size = new System.Drawing.Size(45, 12);
             this.lblPlus.TabIndex = 29;
@@ -484,6 +516,7 @@ namespace Casasoft.Calc
             this.btnRun.TabIndex = 31;
             this.btnRun.Text = "R/S";
             this.btnRun.UseVisualStyleBackColor = false;
+            this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
             // 
             // lblCE
             // 
@@ -596,7 +629,7 @@ namespace Casasoft.Calc
             this.lblXT.Name = "lblXT";
             this.lblXT.Size = new System.Drawing.Size(45, 12);
             this.lblXT.TabIndex = 43;
-            this.lblXT.Text = "P/R";
+            this.lblXT.Text = "P→R";
             this.lblXT.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnXT
@@ -751,11 +784,369 @@ namespace Casasoft.Calc
             this.btnE.UseVisualStyleBackColor = false;
             this.btnE.Click += new System.EventHandler(this.btnE_Click);
             // 
+            // lblClose
+            // 
+            this.lblClose.Location = new System.Drawing.Point(164, 203);
+            this.lblClose.Name = "lblClose";
+            this.lblClose.Size = new System.Drawing.Size(45, 12);
+            this.lblClose.TabIndex = 56;
+            this.lblClose.Text = "Int";
+            this.lblClose.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblOpen
+            // 
+            this.lblOpen.Location = new System.Drawing.Point(114, 203);
+            this.lblOpen.Name = "lblOpen";
+            this.lblOpen.Size = new System.Drawing.Size(45, 12);
+            this.lblOpen.TabIndex = 57;
+            this.lblOpen.Text = "Fix";
+            this.lblOpen.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblEE
+            // 
+            this.lblEE.Location = new System.Drawing.Point(63, 203);
+            this.lblEE.Name = "lblEE";
+            this.lblEE.Size = new System.Drawing.Size(45, 12);
+            this.lblEE.TabIndex = 59;
+            this.lblEE.Text = "Eng";
+            this.lblEE.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnEE
+            // 
+            this.btnEE.BackColor = System.Drawing.Color.SaddleBrown;
+            this.btnEE.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEE.ForeColor = System.Drawing.Color.White;
+            this.btnEE.Location = new System.Drawing.Point(63, 214);
+            this.btnEE.Name = "btnEE";
+            this.btnEE.Size = new System.Drawing.Size(45, 23);
+            this.btnEE.TabIndex = 58;
+            this.btnEE.Text = "EE";
+            this.btnEE.UseVisualStyleBackColor = false;
+            this.btnEE.Click += new System.EventHandler(this.btnEE_Click);
+            // 
+            // lblSTO
+            // 
+            this.lblSTO.Location = new System.Drawing.Point(63, 169);
+            this.lblSTO.Name = "lblSTO";
+            this.lblSTO.Size = new System.Drawing.Size(45, 12);
+            this.lblSTO.TabIndex = 65;
+            this.lblSTO.Text = "CMs";
+            this.lblSTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnlSTO
+            // 
+            this.btnlSTO.BackColor = System.Drawing.Color.SaddleBrown;
+            this.btnlSTO.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnlSTO.ForeColor = System.Drawing.Color.White;
+            this.btnlSTO.Location = new System.Drawing.Point(63, 180);
+            this.btnlSTO.Name = "btnlSTO";
+            this.btnlSTO.Size = new System.Drawing.Size(45, 23);
+            this.btnlSTO.TabIndex = 64;
+            this.btnlSTO.Text = "STO";
+            this.btnlSTO.UseVisualStyleBackColor = false;
+            this.btnlSTO.Click += new System.EventHandler(this.btnlSTO_Click);
+            // 
+            // lblRCL
+            // 
+            this.lblRCL.Location = new System.Drawing.Point(114, 169);
+            this.lblRCL.Name = "lblRCL";
+            this.lblRCL.Size = new System.Drawing.Size(45, 12);
+            this.lblRCL.TabIndex = 63;
+            this.lblRCL.Text = "Exc";
+            this.lblRCL.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblSUM
+            // 
+            this.lblSUM.Location = new System.Drawing.Point(164, 169);
+            this.lblSUM.Name = "lblSUM";
+            this.lblSUM.Size = new System.Drawing.Size(45, 12);
+            this.lblSUM.TabIndex = 62;
+            this.lblSUM.Text = "Prd";
+            this.lblSUM.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnRCL
+            // 
+            this.btnRCL.BackColor = System.Drawing.Color.SaddleBrown;
+            this.btnRCL.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRCL.ForeColor = System.Drawing.Color.White;
+            this.btnRCL.Location = new System.Drawing.Point(114, 180);
+            this.btnRCL.Name = "btnRCL";
+            this.btnRCL.Size = new System.Drawing.Size(45, 23);
+            this.btnRCL.TabIndex = 61;
+            this.btnRCL.Text = "RCL";
+            this.btnRCL.UseVisualStyleBackColor = false;
+            this.btnRCL.Click += new System.EventHandler(this.btnRCL_Click);
+            // 
+            // btnSUM
+            // 
+            this.btnSUM.BackColor = System.Drawing.Color.SaddleBrown;
+            this.btnSUM.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSUM.ForeColor = System.Drawing.Color.White;
+            this.btnSUM.Location = new System.Drawing.Point(165, 180);
+            this.btnSUM.Name = "btnSUM";
+            this.btnSUM.Size = new System.Drawing.Size(45, 23);
+            this.btnSUM.TabIndex = 60;
+            this.btnSUM.Text = "SUM";
+            this.btnSUM.UseVisualStyleBackColor = false;
+            this.btnSUM.Click += new System.EventHandler(this.btnSUM_Click);
+            // 
+            // lbl0
+            // 
+            this.lbl0.Location = new System.Drawing.Point(60, 345);
+            this.lbl0.Name = "lbl0";
+            this.lbl0.Size = new System.Drawing.Size(45, 12);
+            this.lbl0.TabIndex = 68;
+            this.lbl0.Text = "Dsz";
+            this.lbl0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblDot
+            // 
+            this.lblDot.Location = new System.Drawing.Point(111, 345);
+            this.lblDot.Name = "lblDot";
+            this.lblDot.Size = new System.Drawing.Size(45, 12);
+            this.lblDot.TabIndex = 67;
+            this.lblDot.Text = "Adv";
+            this.lblDot.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblCHS
+            // 
+            this.lblCHS.Location = new System.Drawing.Point(161, 345);
+            this.lblCHS.Name = "lblCHS";
+            this.lblCHS.Size = new System.Drawing.Size(45, 12);
+            this.lblCHS.TabIndex = 66;
+            this.lblCHS.Text = "Prt";
+            this.lblCHS.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl1
+            // 
+            this.lbl1.Location = new System.Drawing.Point(63, 308);
+            this.lbl1.Name = "lbl1";
+            this.lbl1.Size = new System.Drawing.Size(45, 12);
+            this.lbl1.TabIndex = 71;
+            this.lbl1.Text = "If flg";
+            this.lbl1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl2
+            // 
+            this.lbl2.Location = new System.Drawing.Point(114, 308);
+            this.lbl2.Name = "lbl2";
+            this.lbl2.Size = new System.Drawing.Size(45, 12);
+            this.lbl2.TabIndex = 70;
+            this.lbl2.Text = "D.MS";
+            this.lbl2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl3
+            // 
+            this.lbl3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl3.Location = new System.Drawing.Point(164, 308);
+            this.lbl3.Name = "lbl3";
+            this.lbl3.Size = new System.Drawing.Size(45, 12);
+            this.lbl3.TabIndex = 69;
+            this.lbl3.Text = "π";
+            this.lbl3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // lbl4
+            // 
+            this.lbl4.Location = new System.Drawing.Point(62, 272);
+            this.lbl4.Name = "lbl4";
+            this.lbl4.Size = new System.Drawing.Size(45, 12);
+            this.lbl4.TabIndex = 74;
+            this.lbl4.Text = "x≥t";
+            this.lbl4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl5
+            // 
+            this.lbl5.Location = new System.Drawing.Point(113, 272);
+            this.lbl5.Name = "lbl5";
+            this.lbl5.Size = new System.Drawing.Size(45, 12);
+            this.lbl5.TabIndex = 73;
+            this.lbl5.Text = "∑+";
+            this.lbl5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl6
+            // 
+            this.lbl6.Location = new System.Drawing.Point(163, 272);
+            this.lbl6.Name = "lbl6";
+            this.lbl6.Size = new System.Drawing.Size(45, 12);
+            this.lbl6.TabIndex = 72;
+            this.lbl6.Text = " ẍ ";
+            this.lbl6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl7
+            // 
+            this.lbl7.Location = new System.Drawing.Point(63, 238);
+            this.lbl7.Name = "lbl7";
+            this.lbl7.Size = new System.Drawing.Size(45, 12);
+            this.lbl7.TabIndex = 77;
+            this.lbl7.Text = "x=t";
+            this.lbl7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl8
+            // 
+            this.lbl8.Location = new System.Drawing.Point(114, 238);
+            this.lbl8.Name = "lbl8";
+            this.lbl8.Size = new System.Drawing.Size(45, 12);
+            this.lbl8.TabIndex = 76;
+            this.lbl8.Text = "Nop";
+            this.lbl8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbl9
+            // 
+            this.lbl9.Location = new System.Drawing.Point(164, 238);
+            this.lbl9.Name = "lbl9";
+            this.lbl9.Size = new System.Drawing.Size(45, 12);
+            this.lbl9.TabIndex = 75;
+            this.lbl9.Text = "Op";
+            this.lbl9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lblSST
+            // 
+            this.lblSST.Location = new System.Drawing.Point(12, 169);
+            this.lblSST.Name = "lblSST";
+            this.lblSST.Size = new System.Drawing.Size(45, 12);
+            this.lblSST.TabIndex = 81;
+            this.lblSST.Text = "Ins";
+            this.lblSST.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnSST
+            // 
+            this.btnSST.BackColor = System.Drawing.Color.SaddleBrown;
+            this.btnSST.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSST.ForeColor = System.Drawing.Color.White;
+            this.btnSST.Location = new System.Drawing.Point(12, 180);
+            this.btnSST.Name = "btnSST";
+            this.btnSST.Size = new System.Drawing.Size(45, 23);
+            this.btnSST.TabIndex = 80;
+            this.btnSST.Text = "SST";
+            this.btnSST.UseVisualStyleBackColor = false;
+            this.btnSST.Click += new System.EventHandler(this.btnSST_Click);
+            // 
+            // lblBST
+            // 
+            this.lblBST.Location = new System.Drawing.Point(12, 203);
+            this.lblBST.Name = "lblBST";
+            this.lblBST.Size = new System.Drawing.Size(45, 12);
+            this.lblBST.TabIndex = 79;
+            this.lblBST.Text = "Del";
+            this.lblBST.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnBST
+            // 
+            this.btnBST.BackColor = System.Drawing.Color.SaddleBrown;
+            this.btnBST.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBST.ForeColor = System.Drawing.Color.White;
+            this.btnBST.Location = new System.Drawing.Point(12, 214);
+            this.btnBST.Name = "btnBST";
+            this.btnBST.Size = new System.Drawing.Size(45, 23);
+            this.btnBST.TabIndex = 78;
+            this.btnBST.Text = "BST";
+            this.btnBST.UseVisualStyleBackColor = false;
+            this.btnBST.Click += new System.EventHandler(this.btnBST_Click);
+            // 
+            // lblSBR
+            // 
+            this.lblSBR.Location = new System.Drawing.Point(12, 274);
+            this.lblSBR.Name = "lblSBR";
+            this.lblSBR.Size = new System.Drawing.Size(45, 12);
+            this.lblSBR.TabIndex = 87;
+            this.lblSBR.Text = "Lbl";
+            this.lblSBR.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnSBR
+            // 
+            this.btnSBR.BackColor = System.Drawing.Color.SaddleBrown;
+            this.btnSBR.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSBR.ForeColor = System.Drawing.Color.White;
+            this.btnSBR.Location = new System.Drawing.Point(12, 285);
+            this.btnSBR.Name = "btnSBR";
+            this.btnSBR.Size = new System.Drawing.Size(45, 23);
+            this.btnSBR.TabIndex = 86;
+            this.btnSBR.Text = "SBR";
+            this.btnSBR.UseVisualStyleBackColor = false;
+            this.btnSBR.Click += new System.EventHandler(this.btnSBR_Click);
+            // 
+            // lblRST
+            // 
+            this.lblRST.Location = new System.Drawing.Point(12, 309);
+            this.lblRST.Name = "lblRST";
+            this.lblRST.Size = new System.Drawing.Size(45, 12);
+            this.lblRST.TabIndex = 85;
+            this.lblRST.Text = "St flg";
+            this.lblRST.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnRST
+            // 
+            this.btnRST.BackColor = System.Drawing.Color.SaddleBrown;
+            this.btnRST.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRST.ForeColor = System.Drawing.Color.White;
+            this.btnRST.Location = new System.Drawing.Point(12, 321);
+            this.btnRST.Name = "btnRST";
+            this.btnRST.Size = new System.Drawing.Size(45, 23);
+            this.btnRST.TabIndex = 84;
+            this.btnRST.Text = "RST";
+            this.btnRST.UseVisualStyleBackColor = false;
+            this.btnRST.Click += new System.EventHandler(this.btnRST_Click);
+            // 
+            // lblGTO
+            // 
+            this.lblGTO.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblGTO.Location = new System.Drawing.Point(12, 239);
+            this.lblGTO.Name = "lblGTO";
+            this.lblGTO.Size = new System.Drawing.Size(45, 12);
+            this.lblGTO.TabIndex = 83;
+            this.lblGTO.Text = "Pause";
+            this.lblGTO.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnGTO
+            // 
+            this.btnGTO.BackColor = System.Drawing.Color.SaddleBrown;
+            this.btnGTO.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGTO.ForeColor = System.Drawing.Color.White;
+            this.btnGTO.Location = new System.Drawing.Point(11, 250);
+            this.btnGTO.Name = "btnGTO";
+            this.btnGTO.Size = new System.Drawing.Size(45, 23);
+            this.btnGTO.TabIndex = 82;
+            this.btnGTO.Text = "GTO";
+            this.btnGTO.UseVisualStyleBackColor = false;
+            this.btnGTO.Click += new System.EventHandler(this.btnGTO_Click);
+            // 
             // CalcForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(270, 399);
+            this.Controls.Add(this.lblSBR);
+            this.Controls.Add(this.btnSBR);
+            this.Controls.Add(this.lblRST);
+            this.Controls.Add(this.btnRST);
+            this.Controls.Add(this.lblGTO);
+            this.Controls.Add(this.btnGTO);
+            this.Controls.Add(this.lblSST);
+            this.Controls.Add(this.btnSST);
+            this.Controls.Add(this.lblBST);
+            this.Controls.Add(this.btnBST);
+            this.Controls.Add(this.lbl7);
+            this.Controls.Add(this.lbl8);
+            this.Controls.Add(this.lbl9);
+            this.Controls.Add(this.lbl4);
+            this.Controls.Add(this.lbl5);
+            this.Controls.Add(this.lbl6);
+            this.Controls.Add(this.lbl1);
+            this.Controls.Add(this.lbl2);
+            this.Controls.Add(this.lbl3);
+            this.Controls.Add(this.lbl0);
+            this.Controls.Add(this.lblDot);
+            this.Controls.Add(this.lblCHS);
+            this.Controls.Add(this.lblSTO);
+            this.Controls.Add(this.btnlSTO);
+            this.Controls.Add(this.lblRCL);
+            this.Controls.Add(this.lblSUM);
+            this.Controls.Add(this.btnRCL);
+            this.Controls.Add(this.btnSUM);
+            this.Controls.Add(this.lblEE);
+            this.Controls.Add(this.btnEE);
+            this.Controls.Add(this.lblOpen);
+            this.Controls.Add(this.lblClose);
             this.Controls.Add(this.lblA);
             this.Controls.Add(this.btnA);
             this.Controls.Add(this.lblB);
@@ -882,5 +1273,37 @@ namespace Casasoft.Calc
         private System.Windows.Forms.Button btnD;
         private System.Windows.Forms.Label lblE;
         private System.Windows.Forms.Button btnE;
+        private System.Windows.Forms.Label lblClose;
+        private System.Windows.Forms.Label lblOpen;
+        private System.Windows.Forms.Label lblEE;
+        private System.Windows.Forms.Button btnEE;
+        private System.Windows.Forms.Label lblSTO;
+        private System.Windows.Forms.Button btnlSTO;
+        private System.Windows.Forms.Label lblRCL;
+        private System.Windows.Forms.Label lblSUM;
+        private System.Windows.Forms.Button btnRCL;
+        private System.Windows.Forms.Button btnSUM;
+        private System.Windows.Forms.Label lbl0;
+        private System.Windows.Forms.Label lblDot;
+        private System.Windows.Forms.Label lblCHS;
+        private System.Windows.Forms.Label lbl1;
+        private System.Windows.Forms.Label lbl2;
+        private System.Windows.Forms.Label lbl3;
+        private System.Windows.Forms.Label lbl4;
+        private System.Windows.Forms.Label lbl5;
+        private System.Windows.Forms.Label lbl6;
+        private System.Windows.Forms.Label lbl7;
+        private System.Windows.Forms.Label lbl8;
+        private System.Windows.Forms.Label lbl9;
+        private System.Windows.Forms.Label lblSST;
+        private System.Windows.Forms.Button btnSST;
+        private System.Windows.Forms.Label lblBST;
+        private System.Windows.Forms.Button btnBST;
+        private System.Windows.Forms.Label lblSBR;
+        private System.Windows.Forms.Button btnSBR;
+        private System.Windows.Forms.Label lblRST;
+        private System.Windows.Forms.Button btnRST;
+        private System.Windows.Forms.Label lblGTO;
+        private System.Windows.Forms.Button btnGTO;
     }
 }

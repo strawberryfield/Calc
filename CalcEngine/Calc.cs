@@ -49,13 +49,13 @@ namespace Casasoft.Calc
         private AngleUnits TrigMode;
         private double t;
 
-        public List<decimal> Memories;
+        public DataStorage Memories;
         public List<byte> Steps;
         public Display Display;
 
         public Calc()
         {
-            Memories = new List<decimal>();
+            Memories = new DataStorage();
             Steps = new List<byte>();
             AritmeticStack = new Stack<AritmeticStackItem>();
             BracketLevel = 0;
@@ -154,6 +154,14 @@ namespace Casasoft.Calc
                     case 50:
                         Display.SetValue(Math.Abs(Display.GetValue()));
                         break;
+                    case 59:
+                        Display.SetValue(InverseFunction ?
+                            Display.GetValue() - Math.Truncate(Display.GetValue()) :
+                            Math.Truncate(Display.GetValue()));
+                        break;
+                    case 89:
+                        Display.SetValue(Math.PI);
+                        break;
 
                     case 38:
                         Display.SetValue(InverseFunction ?
@@ -170,6 +178,12 @@ namespace Casasoft.Calc
                             rad2AngularUnit(Math.Atan(Display.GetValue())) :
                             Math.Tan(AngularUnit2rad(Display.GetValue())));
                         break;
+
+                    // Memories
+                    case 47:
+                        Memories.CMS();
+                        break;
+
                     default:
                         break;
                 }

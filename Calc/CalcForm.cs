@@ -319,6 +319,56 @@ namespace Casasoft.Calc
         {
             CommonClickHandler(SecondFunction ? 30 : 35);
         }
+
+        private void btnEE_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 57 : 52);
+        }
+
+        private void btnlSTO_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 47 : 42);
+        }
+
+        private void btnRCL_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 48 : 43);
+        }
+
+        private void btnSUM_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 49 : 44);
+        }
+
+        private void btnSST_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 46 : 41);
+        }
+
+        private void btnBST_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 56 : 51);
+        }
+
+        private void btnGTO_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 66 : 61);
+        }
+
+        private void btnSBR_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 76 : 71);
+        }
+
+        private void btnRST_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 86 : 81);
+        }
+
+        private void btnRun_Click(object sender, EventArgs e)
+        {
+            CommonClickHandler(SecondFunction ? 96 : 91);
+        }
         #endregion
 
     }
