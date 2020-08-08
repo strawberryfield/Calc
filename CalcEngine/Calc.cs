@@ -43,6 +43,7 @@ namespace Casasoft.Calc
 
         private Stack<AritmeticStackItem> AritmeticStack;
         private int BracketLevel;
+        private InputProcessor inputProcessor;
 
         private bool InverseFunction;
         private enum AngleUnits { Deg, Rad, Grad }
@@ -63,9 +64,15 @@ namespace Casasoft.Calc
             TrigMode = AngleUnits.Rad;
             t = 0;
             Display = new Display();
+            inputProcessor = new InputProcessor(ProcessCommand);
         }
 
         public void EnterKey(byte key)
+        {
+            inputProcessor.ProcessKey(key);
+        }
+
+        private bool ProcessCommand(byte key, byte[] par)
         {
             if (key <= 9 || key == 93 || key == 94 || key == 24)
             {
@@ -197,6 +204,7 @@ namespace Casasoft.Calc
             {
                 InverseFunction = false;
             }
+            return true;
         }
 
         private double AngularUnit2rad(double a) =>
