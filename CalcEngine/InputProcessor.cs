@@ -19,6 +19,7 @@
 // If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Casasoft.Calc
@@ -29,8 +30,12 @@ namespace Casasoft.Calc
         private byte[] parameters;
         private Func<byte, byte[], bool> commandProcessor;
 
-        private enum statuses { WaitForCommand, WaitForByteParameter, WaitForSecondDigit, WaitForDigitParameter, WaitForAddress }
-        private statuses status;
+        private enum status
+        {
+            WaitForCommand, WaitForByteParameter, WaitForByteParameterNoInd,
+            WaitForSecondDigit, WaitForDigitParameter, WaitForAddress
+        }
+        private status currentStatus;
 
         private byte[] CommandsWithoutParameters = {
             11,12,13,14,15,16,17,18,19,10,
@@ -49,36 +54,90 @@ namespace Casasoft.Calc
             62, 63, 64, 72, 73, 74, 82, 83, 84
         };
 
+        private Dictionary<byte, byte> IndirectTransform = new Dictionary<byte, byte>()
+        {
+            { 36, 62 },
+            { 42, 72 },
+            { 43, 73 },
+            { 44, 74 },
+            { 48, 63 },
+            { 49, 64 },
+            { 69, 84 }
+       };
+
         public InputProcessor(Func<byte, byte[], bool> commandProcessor)
         {
-            status = statuses.WaitForCommand;
+            currentStatus = status.WaitForCommand;
             parameters = new byte[5];
             this.commandProcessor = commandProcessor;
         }
 
         public void ProcessKey(byte key)
         {
-            switch (status)
+            switch (currentStatus)
             {
-                case statuses.WaitForCommand:
-                    if(key < 10 || CommandsWithoutParameters.Contains(key))
+                case status.WaitForCommand:
+                    if (key < 10 || CommandsWithoutParameters.Contains(key))
                     {
                         commandProcessor(key, null);
-                    } 
+                    }
                     else if (CommandsWithByteParameter.Contains(key))
                     {
                         currentCommand = key;
-                        parameters[0] = 0;
-                        status = statuses.WaitForByteParameter;
+                        parameters[0] = 1;
+                        parameters[1] = 0;
+                        currentStatus = status.WaitForByteParameter;
                     }
                     break;
-                case statuses.WaitForByteParameter:
+                case status.WaitForByteParameter:
+                    if (key == 40 && IndirectTransform.ContainsKey(currentCommand))
+                    {
+                        currentCommand = IndirectTransform[currentCommand];
+                        currentStatus = status.WaitForByteParameterNoInd;
+                    }
+                    else
+                    {
+                        parameters[1] = key;
+                        if (key > 9)
+                        {
+                            commandProcessor(currentCommand, parameters);
+                            currentStatus = status.WaitForCommand;
+                        }
+                        else
+                        {
+                            currentStatus = status.WaitForSecondDigit;
+                        }
+                    }
                     break;
-                case statuses.WaitForSecondDigit:
+                case status.WaitForByteParameterNoInd:
+                    parameters[1] = key;
+                    if (key > 9)
+                    {
+                        commandProcessor(currentCommand, parameters);
+                        currentStatus = status.WaitForCommand;
+                    }
+                    else
+                    {
+                        currentStatus = status.WaitForSecondDigit;
+                    }
                     break;
-                case statuses.WaitForDigitParameter:
+                case status.WaitForSecondDigit:
+                    if(key > 9)
+                    {
+                        commandProcessor(currentCommand, parameters);
+                        currentStatus = status.WaitForCommand;
+                        ProcessKey(key);
+                    }
+                    else
+                    {
+                        parameters[1] = Convert.ToByte(parameters[1] * 10 + key);
+                        commandProcessor(currentCommand, parameters);
+                        currentStatus = status.WaitForCommand;
+                    }
                     break;
-                case statuses.WaitForAddress:
+                case status.WaitForDigitParameter:
+                    break;
+                case status.WaitForAddress:
                     break;
                 default:
                     break;
