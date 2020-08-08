@@ -83,7 +83,6 @@ namespace Casasoft.Calc
                 default:
                     break;
             }
-            commandProcessor(key, null);
         }
     }
 }
