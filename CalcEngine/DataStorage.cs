@@ -20,10 +20,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 
 namespace Casasoft.Calc
 {
-    public class DataStorage
+    [Guid("2F68C8CC-08D1-4A71-B32C-F21FB431E54F"),
+        ClassInterface(ClassInterfaceType.None),
+        ProgId("Casasoft.CalcData")]
+    public class DataStorage : IDataStorage
     {
         private Dictionary<int, double> db;
 

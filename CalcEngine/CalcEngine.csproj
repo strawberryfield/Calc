@@ -46,6 +46,8 @@
     <Compile Include="DataStorage.cs" />
     <Compile Include="Display.cs" />
     <Compile Include="ICalc.cs" />
+    <Compile Include="IDataStorage.cs" />
+    <Compile Include="IDisplay.cs" />
     <Compile Include="InputProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
