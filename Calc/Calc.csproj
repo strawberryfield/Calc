@@ -50,6 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalcButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CalcButton.Designer.cs">
+      <DependentUpon>CalcButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="CalcForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +64,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CalcButton.resx">
+      <DependentUpon>CalcButton.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CalcForm.resx">
       <DependentUpon>CalcForm.cs</DependentUpon>
     </EmbeddedResource>
