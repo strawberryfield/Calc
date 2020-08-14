@@ -21,13 +21,12 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Messaging;
 
 namespace Casasoft.Calc
 {
     [Guid("6C6029E3-70C3-4D85-9C0F-A49E05A1F2DE"),
-        ClassInterface(ClassInterfaceType.None),
-        ProgId("Casasoft.Calc")]
+    ClassInterface(ClassInterfaceType.None),
+    ProgId("Casasoft.Calc")]
     public class Calc : ICalc
     {
         private enum Operands { Plus, Minus, Times, Div, Exponent }

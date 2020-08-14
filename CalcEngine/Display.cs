@@ -28,7 +28,7 @@ namespace Casasoft.Calc
     [Guid("5510AF94-04A9-4500-8948-41271BC1FF58"),
         ClassInterface(ClassInterfaceType.None),
         ProgId("Casasoft.CalcDisplay")]
-    public class Display : IDisplay 
+    public class Display : IDisplay
     {
         private string currentText;
         private double currentValue;
