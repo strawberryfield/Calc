@@ -30,6 +30,31 @@ namespace Casasoft.Calc
             InitializeComponent();
         }
 
+        public CalcButton(ButtonDef bd) : this()
+        {
+            LabelText = bd.AltText;
+            ButtonText = bd.Text;
+            FunctionCode = bd.FunctionCode;
+            SecondFunctionCode = bd.SecondFunctionCode;
+            switch (bd.ButtonType)
+            {
+                case ButtonDef.EButtonType.Normal:
+                    ButtonBackColor = Color.SaddleBrown;
+                    ButtonForeColor = Color.White;
+                    break;
+                case ButtonDef.EButtonType.Numeric:
+                    ButtonBackColor = Color.White;
+                    ButtonForeColor = Color.Black;
+                    break;
+                case ButtonDef.EButtonType.Operator:
+                    ButtonBackColor = Color.Gold;
+                    ButtonForeColor = Color.Black;
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public string LabelText { get => label.Text; set => label.Text = value; }
         public string ButtonText { get => button.Text; set => button.Text = value; }
         public Color ButtonBackColor { get => button.BackColor; set => button.BackColor = value; }
