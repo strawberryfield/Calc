@@ -43,12 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ButtonDef.cs" />
+    <Compile Include="ButtonsList.cs" />
     <Compile Include="Calc.cs" />
     <Compile Include="DataStorage.cs" />
     <Compile Include="Display.cs" />
-    <Compile Include="ICalc.cs" />
-    <Compile Include="IDataStorage.cs" />
-    <Compile Include="IDisplay.cs" />
+    <Compile Include="Interfaces\ICalc.cs" />
+    <Compile Include="Interfaces\IDataStorage.cs" />
+    <Compile Include="Interfaces\IDisplay.cs" />
     <Compile Include="InputProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
