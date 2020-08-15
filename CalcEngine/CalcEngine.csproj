@@ -47,8 +47,12 @@
     <Compile Include="Display.cs" />
     <Compile Include="InputProcessor.cs" />
     <Compile Include="Interfaces\ICalcEngine.cs" />
+    <Compile Include="Interfaces\ICalcProgram.cs" />
     <Compile Include="Interfaces\IDataStorage.cs" />
     <Compile Include="Interfaces\IDisplay.cs" />
+    <Compile Include="CalcProgram.cs" />
+    <Compile Include="Interfaces\IPrograms.cs" />
+    <Compile Include="Programs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

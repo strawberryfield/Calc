@@ -81,7 +81,7 @@ namespace Casasoft.Calc
         private void CommonClickHandler(int key)
         {
             CalcEngine.EnterKey(Convert.ToByte(key));
-            txtDisplay.Text = CalcEngine.Display.GetText();
+            txtDisplay.Text = CalcEngine.GetDisplayString();
             if (key != 22) SecondFunction = false;
         }
 

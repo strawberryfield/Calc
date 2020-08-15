@@ -18,17 +18,26 @@
 // along with CasaSoft Calc.  
 // If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Casasoft.Calc
 {
-    [Guid("63B56927-BA70-4CD4-9369-5A813CDF6CF9")]
-    public interface ICalcEngine
+    [Guid("E914961C-6559-4BAC-AA90-F6CF18C50F54"),
+    ClassInterface(ClassInterfaceType.None),
+    ProgId("Casasoft.CalcPrograms")]
+    public class Programs : IPrograms
     {
-        DataStorage Memories { get; set; }
-        Display Display { get; set; }
-        void EnterKey(byte key);
-        string GetDisplayString();
-        string About();
+        private Dictionary<int, CalcProgram> Progs;
+        public int ActiveProgram { get; set; }
+
+        public Programs()
+        {
+            Progs = new Dictionary<int, CalcProgram>();
+            Progs.Add(0, new CalcProgram());
+            ActiveProgram = 0;
+        }
+
+        public CalcProgram Current { get => Progs[ActiveProgram]; }
     }
 }

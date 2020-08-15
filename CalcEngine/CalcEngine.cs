@@ -24,6 +24,8 @@ using System.Runtime.InteropServices;
 
 namespace Casasoft.Calc
 {
+    public enum OperatingMode { Interactive, Run, Learn }
+
     [Guid("6C6029E3-70C3-4D85-9C0F-A49E05A1F2DE"),
     ClassInterface(ClassInterfaceType.None),
     ProgId("Casasoft.CalcEngine")]
@@ -53,16 +55,19 @@ namespace Casasoft.Calc
         private enum AngleUnits { Deg, Rad, Grad }
         private AngleUnits TrigMode;
         private double t;
+        private OperatingMode OperatingMode;
 
         public DataStorage Memories { get; set; }
         public List<byte> Steps;
         public Display Display { get; set; }
+        public Programs Programs { get; private set; }
 
         public string About() => "Casasoft Calc";
 
         public CalcEngine()
         {
             Memories = new DataStorage();
+            Programs = new Programs();
             Steps = new List<byte>();
             AritmeticStack = new Stack<AritmeticStackItem>();
             BracketLevel = 0;
@@ -71,9 +76,25 @@ namespace Casasoft.Calc
             t = 0;
             Display = new Display();
             inputProcessor = new InputProcessor(ProcessCommand);
+            OperatingMode = OperatingMode.Interactive;
+            inputProcessor.OperatingMode = OperatingMode;
         }
 
-        public void EnterKey(byte key)
+        public string GetDisplayString()
+        {
+            switch (OperatingMode)
+            {
+                case OperatingMode.Interactive:
+                    return Display.GetText();
+                case OperatingMode.Run:
+                    return "Computing";
+                case OperatingMode.Learn:
+                    return Programs.Current.GetDisplayString();
+                default:
+                    return string.Empty;
+            }
+        }
+    public void EnterKey(byte key)
         {
             inputProcessor.ProcessKey(key);
         }
@@ -237,6 +258,22 @@ namespace Casasoft.Calc
                             Memories.INV_PRD_ind(par[1], Display.GetValue());
                         else
                             Memories.PRD_ind(par[1], Display.GetValue());
+                        break;
+
+                    case 31:
+                        switch (OperatingMode)
+                        {
+                            case OperatingMode.Interactive:
+                                OperatingMode = OperatingMode.Learn;
+                                break;
+                            case OperatingMode.Run:
+                                break;
+                            case OperatingMode.Learn:
+                                OperatingMode = OperatingMode.Interactive;
+                                break;
+                            default:
+                                break;
+                        }
                         break;
                     default:
                         break;

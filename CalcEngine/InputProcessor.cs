@@ -31,6 +31,7 @@ namespace Casasoft.Calc
         private byte currentCommand;
         private byte[] parameters;
         private Func<byte, byte[], bool> commandProcessor;
+        internal OperatingMode OperatingMode;
 
         private enum status
         {
@@ -72,6 +73,7 @@ namespace Casasoft.Calc
             currentStatus = status.WaitForCommand;
             parameters = new byte[5];
             this.commandProcessor = commandProcessor;
+            OperatingMode = OperatingMode.Interactive;
         }
 
         public void ProcessKey(byte key)

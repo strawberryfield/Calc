@@ -22,13 +22,20 @@ using System.Runtime.InteropServices;
 
 namespace Casasoft.Calc
 {
-    [Guid("63B56927-BA70-4CD4-9369-5A813CDF6CF9")]
-    public interface ICalcEngine
+    [Guid("B33ECB95-0809-4739-888E-25B5F06E6E04")]
+    public interface ICalcProgram
     {
-        DataStorage Memories { get; set; }
-        Display Display { get; set; }
-        void EnterKey(byte key);
+        int Counter { get; }
+        void CP();
+        void RST();
+        void SST();
+        void BST();
+        void SBR(int step);
+        void RTN();
+        void INS();
+        void DEL();
+        byte GetCurrent();
+        void SetCurrent(byte step);
         string GetDisplayString();
-        string About();
     }
 }
