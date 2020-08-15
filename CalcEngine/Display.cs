@@ -88,7 +88,8 @@ namespace Casasoft.Calc
                     {
                         currentText += $"{key}";
                     }
-                    currentValue = Convert.ToDouble(currentText, CultureInfo.InvariantCulture);
+                    currentValue = string.IsNullOrWhiteSpace(currentText) ? 
+                        0 : Convert.ToDouble(currentText, CultureInfo.InvariantCulture);
                     break;
             }
         }

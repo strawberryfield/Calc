@@ -196,7 +196,48 @@ namespace Casasoft.Calc
                     case 47:
                         Memories.CMS();
                         break;
-
+                    case 42:
+                        Memories.STO(par[1], Display.GetValue());
+                        break;
+                    case 43:
+                        Display.SetValue(Memories.RCL(par[1]));
+                        break;
+                    case 48:
+                        Display.SetValue(Memories.EXC(par[1], Display.GetValue()));
+                        break;
+                    case 44:
+                        if (InverseFunction)
+                            Memories.INV_SUM(par[1], Display.GetValue());
+                        else
+                            Memories.SUM(par[1], Display.GetValue());
+                        break;
+                    case 49:
+                        if (InverseFunction)
+                            Memories.INV_PRD(par[1], Display.GetValue());
+                        else
+                            Memories.PRD(par[1], Display.GetValue());
+                        break;
+                    case 72:
+                        Memories.STO_ind(par[1], Display.GetValue());
+                        break;
+                    case 73:
+                        Display.SetValue(Memories.RCL_ind(par[1]));
+                        break;
+                    case 63:
+                        Display.SetValue(Memories.EXC_ind(par[1], Display.GetValue()));
+                        break;
+                    case 74:
+                        if (InverseFunction)
+                            Memories.INV_SUM_ind(par[1], Display.GetValue());
+                        else
+                            Memories.SUM_ind(par[1], Display.GetValue());
+                        break;
+                    case 64:
+                        if (InverseFunction)
+                            Memories.INV_PRD_ind(par[1], Display.GetValue());
+                        else
+                            Memories.PRD_ind(par[1], Display.GetValue());
+                        break;
                     default:
                         break;
                 }

@@ -28,7 +28,7 @@ namespace Casasoft.Calc
     [ProgId("Casasoft.Calc")]
     public partial class CalcForm : Form
     {
-        private CalcEngine CalcEngine;
+        public CalcEngine CalcEngine { get; private set; }
         private bool SecondFunction;
 
         public CalcForm()
