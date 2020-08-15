@@ -23,7 +23,7 @@ using System.Runtime.InteropServices;
 namespace Casasoft.Calc
 {
     [Guid("63B56927-BA70-4CD4-9369-5A813CDF6CF9")]
-    public interface ICalc
+    public interface ICalcEngine
     {
         DataStorage Memories { get; set; }
         Display Display { get; set; }

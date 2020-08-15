@@ -18,9 +18,14 @@
 // along with CasaSoft Calc.  
 // If not, see <http://www.gnu.org/licenses/>.
 
+using System.Runtime.InteropServices;
+
 namespace Casasoft.Calc
 {
-    public class ButtonsList
+    [Guid("5A2B9A03-AD53-4A75-B01E-7D458F06B3CE"),
+    ClassInterface(ClassInterfaceType.None),
+    ProgId("Casasoft.CalcButtons")]
+    public class ButtonsList : IButtonsList
     {
         public ButtonDef[][] ButtonDefs { get; private set; }
 

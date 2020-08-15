@@ -19,10 +19,14 @@
 // If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Runtime.InteropServices;
 
 namespace Casasoft.Calc
 {
-    public class ButtonDef
+    [Guid("CFE78B66-C9B3-4139-B0F9-277B05BD84DD"),
+    ClassInterface(ClassInterfaceType.None),
+    ProgId("Casasoft.CalcButton")]
+    public class ButtonDef : IButtonDef
     {
         public string Text { get; set; }
         public string AltText { get; set; }
@@ -44,5 +48,9 @@ namespace Casasoft.Calc
         public ButtonDef(string text, string altText, byte fcode) :
             this(text, altText, fcode, Convert.ToByte(fcode % 10 == 5 ? fcode - 5 : fcode + 5), EButtonType.Normal)
         { }
+
+        public ButtonDef()
+        {
+        }
     }
 }

@@ -19,10 +19,12 @@
 // If not, see <http://www.gnu.org/licenses/>.
 
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Casasoft.Calc
 {
+    [ComVisible(false)]
     public partial class CalcButton : UserControl
     {
         public CalcButton()

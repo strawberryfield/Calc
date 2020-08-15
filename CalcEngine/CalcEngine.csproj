@@ -42,13 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ButtonDef.cs" />
-    <Compile Include="ButtonsList.cs" />
-    <Compile Include="Calc.cs" />
+    <Compile Include="CalcEngine.cs" />
     <Compile Include="DataStorage.cs" />
     <Compile Include="Display.cs" />
     <Compile Include="InputProcessor.cs" />
-    <Compile Include="Interfaces\ICalc.cs" />
+    <Compile Include="Interfaces\ICalcEngine.cs" />
     <Compile Include="Interfaces\IDataStorage.cs" />
     <Compile Include="Interfaces\IDisplay.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

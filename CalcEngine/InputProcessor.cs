@@ -21,9 +21,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Casasoft.Calc
 {
+    [ComVisible(false)]
     public class InputProcessor
     {
         private byte currentCommand;

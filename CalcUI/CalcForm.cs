@@ -19,19 +19,22 @@
 // If not, see <http://www.gnu.org/licenses/>.
 
 using System;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Casasoft.Calc
 {
+    [Guid("E20AFEE4-B920-42C4-ADC9-F97246BB552C")]
+    [ProgId("Casasoft.Calc")]
     public partial class CalcForm : Form
     {
-        private Calc CalcEngine;
+        private CalcEngine CalcEngine;
         private bool SecondFunction;
 
         public CalcForm()
         {
             InitializeComponent();
-            CalcEngine = new Calc();
+            CalcEngine = new CalcEngine();
             txtDisplay.Text = CalcEngine.Display.GetText();
             SecondFunction = false;
             makeButtons();
@@ -60,11 +63,11 @@ namespace Casasoft.Calc
             Button ib = (Button)sender;
             CalcButton b = (CalcButton)ib.Parent;
 
-            if(b.FunctionCode == 21)
+            if (b.FunctionCode == 21)
             {
                 SecondFunction = !SecondFunction;
             }
-            else if(SecondFunction)
+            else if (SecondFunction)
             {
                 CommonClickHandler(b.SecondFunctionCode);
             }

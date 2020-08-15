@@ -26,8 +26,8 @@ namespace Casasoft.Calc
 {
     [Guid("6C6029E3-70C3-4D85-9C0F-A49E05A1F2DE"),
     ClassInterface(ClassInterfaceType.None),
-    ProgId("Casasoft.Calc")]
-    public class Calc : ICalc
+    ProgId("Casasoft.CalcEngine")]
+    public class CalcEngine : ICalcEngine
     {
         private enum Operands { Plus, Minus, Times, Div, Exponent }
 
@@ -60,7 +60,7 @@ namespace Casasoft.Calc
 
         public string About() => "Casasoft Calc";
 
-        public Calc()
+        public CalcEngine()
         {
             Memories = new DataStorage();
             Steps = new List<byte>();
