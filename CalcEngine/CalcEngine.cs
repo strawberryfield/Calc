@@ -302,11 +302,24 @@ namespace Casasoft.Calc
                             Memories.PRD_ind(par[1], Display.GetValue());
                         break;
 
+                    //Programming
                     case 31:
                         if (OperatingMode == OperatingMode.Interactive)
                         {
                             OperatingMode = OperatingMode.Learn;
                         }
+                        break;
+                    case 81:
+                        Programs.Current.RST();
+                        break;
+                    case 29:
+                        Programs.Current.CP();
+                        break;
+                    case 36:
+                        Programs.ActiveProgram = par[1];
+                        break;
+                    case 62:
+                        Programs.ActiveProgram = Convert.ToInt32(Memories.RCL(par[1]));
                         break;
                     default:
                         break;
