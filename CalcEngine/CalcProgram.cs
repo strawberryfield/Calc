@@ -72,5 +72,18 @@ namespace Casasoft.Calc
         public void SetCurrent(byte step) => Steps[Counter] = step;
 
         public string GetDisplayString() => $"{Counter:000} {GetCurrent():00} ";
+
+        public bool IsEof() => Counter == Steps.Count - 1;
+
+        public void Put(byte b) => Steps[Counter] = b;
+
+        public void Add() => Steps.Add(0);
+
+        public void GoNext()
+        {
+            if (IsEof())
+                Add();
+            SST();
+        }
     }
 }

@@ -94,12 +94,54 @@ namespace Casasoft.Calc
                     return string.Empty;
             }
         }
-    public void EnterKey(byte key)
+        public void EnterKey(byte key)
         {
             inputProcessor.ProcessKey(key);
         }
 
         private bool ProcessCommand(byte key, byte[] par)
+        {
+            if (OperatingMode == OperatingMode.Learn)
+                return ProcessCommandLearn(key, par);
+            else
+                return ProcessCommandExec(key, par);
+        }
+
+        private bool ProcessCommandLearn(byte key, byte[] par)
+        {
+            switch (key)
+            {
+                case 31:
+                    OperatingMode = OperatingMode.Interactive;
+                    break;
+                case 41:
+                    Programs.Current.GoNext();
+                    break;
+                case 51:
+                    if (Programs.Current.Counter > 0)
+                        Programs.Current.BST();
+                    break;
+                case 46:
+                    Programs.Current.INS();
+                    break;
+                case 56:
+                    Programs.Current.DEL();
+                    break;
+                default:
+                    Programs.Current.Put(key);
+                    Programs.Current.GoNext();
+                    if (par != null)
+                        for (int j = 1; j <= par[0]; ++j)
+                        {
+                            Programs.Current.Put(par[j]);
+                            Programs.Current.GoNext();
+                        }
+                    break;
+            }
+            return true;
+        }
+
+        private bool ProcessCommandExec(byte key, byte[] par)
         {
             if (key <= 9 || key == 93 || key == 94 || key == 24)
             {
@@ -261,18 +303,9 @@ namespace Casasoft.Calc
                         break;
 
                     case 31:
-                        switch (OperatingMode)
+                        if (OperatingMode == OperatingMode.Interactive)
                         {
-                            case OperatingMode.Interactive:
-                                OperatingMode = OperatingMode.Learn;
-                                break;
-                            case OperatingMode.Run:
-                                break;
-                            case OperatingMode.Learn:
-                                OperatingMode = OperatingMode.Interactive;
-                                break;
-                            default:
-                                break;
+                            OperatingMode = OperatingMode.Learn;
                         }
                         break;
                     default:

@@ -37,5 +37,9 @@ namespace Casasoft.Calc
         byte GetCurrent();
         void SetCurrent(byte step);
         string GetDisplayString();
+        bool IsEof();
+        void Put(byte b);
+        void Add();
+        void GoNext();
     }
 }
