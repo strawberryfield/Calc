@@ -137,12 +137,12 @@ namespace Casasoft.Calc
                     Programs.Current.DEL();
                     break;
                 default:
-                    Programs.Current.Put(key);
+                    Programs.Current.SetCurrent(key);
                     Programs.Current.GoNext();
                     if (par != null)
                         for (int j = 1; j <= par[0]; ++j)
                         {
-                            Programs.Current.Put(par[j]);
+                            Programs.Current.SetCurrent(par[j]);
                             Programs.Current.GoNext();
                         }
                     break;

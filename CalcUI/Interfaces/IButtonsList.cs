@@ -25,6 +25,12 @@ namespace Casasoft.Calc
     [Guid("350EF4A5-B7CE-43EB-96BB-A74BD2DC744E")]
     public interface IButtonsList
     {
+        /// <summary>
+        /// Buttons grid definition
+        /// </summary>
+        /// <remarks>
+        /// Needs refactoring to work in COM
+        /// </remarks>
         ButtonDef[][] ButtonDefs { get; }
     }
 }

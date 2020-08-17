@@ -25,8 +25,21 @@ namespace Casasoft.Calc
     [Guid("7E640F3E-6775-4182-95BC-0B728C749F93")]
     public interface IPrograms
     {
+        /// <summary>
+        /// Current program id
+        /// </summary>
         int ActiveProgram { get; set; }
+
+        /// <summary>
+        /// Current program
+        /// </summary>
         CalcProgram Current { get; }
+
+        /// <summary>
+        /// Program by id
+        /// </summary>
+        /// <param name="n"></param>
+        /// <returns></returns>
         CalcProgram this[int n] { get; set; }
     }
 }

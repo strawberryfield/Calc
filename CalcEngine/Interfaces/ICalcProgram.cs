@@ -26,27 +26,118 @@ namespace Casasoft.Calc
     [Guid("B33ECB95-0809-4739-888E-25B5F06E6E04")]
     public interface ICalcProgram
     {
+        /// <summary>
+        /// Program counter
+        /// </summary>
         int Counter { get; }
+
+        /// <summary>
+        /// Clears the program
+        /// </summary>
         void CP();
+
+        /// <summary>
+        /// Moves program counter to 0 and clears return stack
+        /// </summary>
         void RST();
+
+        /// <summary>
+        /// Step forward
+        /// </summary>
         void SST();
+
+        /// <summary>
+        /// Step backward
+        /// </summary>
         void BST();
+
+        /// <summary>
+        /// Go to step
+        /// </summary>
+        /// <param name="step"></param>
         void GTO(int step);
+
+        /// <summary>
+        /// Go to label
+        /// </summary>
+        /// <param name="label">byte value of the opcode</param>
         void GTO_Label(byte label);
+
+        /// <summary>
+        /// Go to step and save return point
+        /// </summary>
+        /// <param name="step"></param>
         void SBR(int step);
+
+        /// <summary>
+        /// Returns to saved point
+        /// </summary>
         void RTN();
+
+        /// <summary>
+        /// Inserts a program step
+        /// </summary>
         void INS();
+
+        /// <summary>
+        /// Deletes the current program step
+        /// </summary>
         void DEL();
+
+        /// <summary>
+        /// Gets current step's opcode
+        /// </summary>
+        /// <returns></returns>
         byte GetCurrent();
+
+        /// <summary>
+        /// Sets the value at current step
+        /// </summary>
+        /// <param name="step"></param>
         void SetCurrent(byte step);
+
+        /// <summary>
+        /// Gets the strin to display
+        /// </summary>
+        /// <returns></returns>
         string GetDisplayString();
+
+        /// <summary>
+        /// True if at the end of the program
+        /// </summary>
+        /// <returns></returns>
         bool IsEof();
-        void Put(byte b);
+        
+        /// <summary>
+        /// Adds an empty step
+        /// </summary>
         void Add();
+
+        /// <summary>
+        /// Goes to next step and add it if missing
+        /// </summary>
         void GoNext();
+
+        /// <summary>
+        /// List of labels
+        /// </summary>
         Dictionary<byte, int> Labels { get; }
+
+        /// <summary>
+        /// finds labels declarations in the program
+        /// </summary>
         void FindLabels();
+
+        /// <summary>
+        /// Serializes program for save
+        /// </summary>
+        /// <returns></returns>
         string Serialize();
+
+        /// <summary>
+        /// Deserialize program from string
+        /// </summary>
+        /// <param name="s"></param>
         void Deserialize(string s);
     }
 }

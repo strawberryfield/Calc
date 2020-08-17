@@ -26,11 +26,38 @@ namespace Casasoft.Calc
     [Guid("6850B9D4-97E5-4FBA-8C8E-A07EECBC11DD")]
     public interface IDisplay
     {
+        /// <summary>
+        /// Clears the display
+        /// </summary>
         void Clear();
+
+        /// <summary>
+        /// Clears the display on next numeric key pressed
+        /// </summary>
         void AutoClear();
+
+        /// <summary>
+        /// Sets the display value
+        /// </summary>
+        /// <param name="v"></param>
         void SetValue(double v);
+
+        /// <summary>
+        /// Gets numeric value of the display
+        /// </summary>
+        /// <returns></returns>
         double GetValue();
+
+        /// <summary>
+        /// Gets a formatted string of the current value 
+        /// </summary>
+        /// <returns></returns>
         string GetText();
+
+        /// <summary>
+        /// Processes keystroke
+        /// </summary>
+        /// <param name="key"></param>
         void EnterKey(byte key);
     }
 }

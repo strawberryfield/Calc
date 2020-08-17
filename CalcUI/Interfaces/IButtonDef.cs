@@ -25,10 +25,32 @@ namespace Casasoft.Calc
     [Guid("1514ADA7-4158-431F-80EE-945A35ADD80B")]
     public interface IButtonDef
     {
+        /// <summary>
+        /// Text of the button
+        /// </summary>
         string Text { get; }
+
+        /// <summary>
+        /// Text of the label
+        /// </summary>
         string AltText { get; }
+
+        /// <summary>
+        /// Main function code
+        /// </summary>
         byte FunctionCode { get; }
+
+        /// <summary>
+        /// Second function code (if any)
+        /// </summary>
         byte SecondFunctionCode { get; }
+
+        /// <summary>
+        /// Button type
+        /// </summary>
+        /// <remarks>
+        /// 0=Normal, 1=Numeric, 2=Operator
+        /// </remarks>
         int NButtonType { get; }
 
     }
