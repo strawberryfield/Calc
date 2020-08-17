@@ -36,7 +36,7 @@ namespace Casasoft.Calc
         private enum status
         {
             WaitForCommand, WaitForByteParameter, WaitForByteParameterNoInd,
-            WaitForSecondDigit, WaitForDigitParameter, WaitForAddress
+            WaitForSecondDigit, WaitForDigitParameter, WaitForAddress, WaitForLabel
         }
         private status currentStatus;
 
@@ -92,6 +92,19 @@ namespace Casasoft.Calc
                         parameters[1] = 0;
                         currentStatus = status.WaitForByteParameter;
                     }
+                    else if (key == 76)
+                    {
+                        currentCommand = key;
+                        parameters[0] = 1;
+                        parameters[1] = 0;
+                        currentStatus = status.WaitForLabel;
+                    }
+                    else if (key == 61 || key == 71)
+                    {
+                        currentCommand = key;
+                        parameters[0] = 1;
+                        currentStatus = status.WaitForAddress;
+                    }
                     break;
                 case status.WaitForByteParameter:
                     if (key == 40 && IndirectTransform.ContainsKey(currentCommand))
@@ -101,7 +114,7 @@ namespace Casasoft.Calc
                     }
                     else
                     {
-                        parameters[1] = key;
+                        parameters[parameters[0]] = key;
                         if (key > 9)
                         {
                             commandProcessor(currentCommand, parameters);
@@ -114,7 +127,7 @@ namespace Casasoft.Calc
                     }
                     break;
                 case status.WaitForByteParameterNoInd:
-                    parameters[1] = key;
+                    parameters[parameters[0]] = key;
                     if (key > 9)
                     {
                         commandProcessor(currentCommand, parameters);
@@ -126,7 +139,7 @@ namespace Casasoft.Calc
                     }
                     break;
                 case status.WaitForSecondDigit:
-                    if(key > 9)
+                    if (key > 9)
                     {
                         commandProcessor(currentCommand, parameters);
                         currentStatus = status.WaitForCommand;
@@ -134,7 +147,7 @@ namespace Casasoft.Calc
                     }
                     else
                     {
-                        parameters[1] = Convert.ToByte(parameters[1] * 10 + key);
+                        parameters[parameters[0]] = Convert.ToByte(parameters[parameters[0]] * 10 + key);
                         commandProcessor(currentCommand, parameters);
                         currentStatus = status.WaitForCommand;
                     }
@@ -142,6 +155,36 @@ namespace Casasoft.Calc
                 case status.WaitForDigitParameter:
                     break;
                 case status.WaitForAddress:
+                    if (key == 40)
+                    {
+                        if (currentCommand == 61)
+                        {
+                            currentCommand = 83;
+                        }
+                        else
+                        {
+                            parameters[parameters[0]] = key;
+                            parameters[0]++;
+                        }
+                        currentStatus = status.WaitForByteParameterNoInd;
+                    }
+                    else if (key < 10)
+                    {
+                        parameters[parameters[0]] = key;
+                        parameters[0]++;
+                        currentStatus = status.WaitForByteParameterNoInd;
+                    }
+                    else
+                    {
+                        parameters[parameters[0]] = key;
+                        commandProcessor(currentCommand, parameters);
+                        currentStatus = status.WaitForCommand;
+                    }
+                    break;
+                case status.WaitForLabel:
+                    parameters[1] = key;
+                    commandProcessor(currentCommand, parameters);
+                    currentStatus = status.WaitForCommand;
                     break;
                 default:
                     break;

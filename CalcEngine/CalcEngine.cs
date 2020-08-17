@@ -94,6 +94,7 @@ namespace Casasoft.Calc
                     return string.Empty;
             }
         }
+
         public void EnterKey(byte key)
         {
             inputProcessor.ProcessKey(key);
@@ -321,6 +322,35 @@ namespace Casasoft.Calc
                     case 62:
                         Programs.ActiveProgram = Convert.ToInt32(Memories.RCL(par[1]));
                         break;
+                    case 61:
+                        if(par[0] == 1)
+                        {
+                            // todo goto label
+                        }
+                        else
+                        {
+                            Programs.Current.GTO(par[1] * 100 + par[2]);
+                        }
+                        break;
+                    case 83:
+                        Programs.Current.GTO(Convert.ToInt32(Memories.RCL(par[1])));
+                        break;
+                    case 91:
+                        switch (OperatingMode)
+                        {
+                            case OperatingMode.Interactive:
+                                OperatingMode = OperatingMode.Run;
+                                Run();
+                                break;
+                            case OperatingMode.Run:
+                                OperatingMode = OperatingMode.Interactive;
+                                break;
+                            case OperatingMode.Learn:
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -337,6 +367,19 @@ namespace Casasoft.Calc
             return true;
         }
 
+        private void Run()
+        {
+            while(OperatingMode == OperatingMode.Run)
+            {
+                EnterKey(Programs.Current.GetCurrent());
+                if (Programs.Current.IsEof())
+                    OperatingMode = OperatingMode.Interactive;
+                else
+                    Programs.Current.SST();
+            }
+        }
+
+        #region math utilities
         private double AngularUnit2rad(double a) =>
             TrigMode == AngleUnits.Rad ? a :
             a / (TrigMode == AngleUnits.Deg ? 180 : 200) * Math.PI;
@@ -384,5 +427,6 @@ namespace Casasoft.Calc
                     break;
             }
         }
+        #endregion
     }
 }
