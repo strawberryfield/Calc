@@ -38,6 +38,7 @@ namespace Casasoft.Calc
             Steps.Add(0);
             Returns = new Stack<int>();
             Counter = 0;
+            Labels = new Dictionary<byte, int>();
         }
 
         public void CP()
@@ -48,6 +49,15 @@ namespace Casasoft.Calc
         }
 
         public void GTO(int step) => Counter = step;
+
+        public void GTO_Label(byte label)
+        {
+            int addr;
+            if(Labels.TryGetValue(label, out addr))
+            {
+                GTO(addr);
+            }
+        }
 
         public void RST() => Counter = 0;
 
@@ -85,5 +95,30 @@ namespace Casasoft.Calc
                 Add();
             SST();
         }
+
+        #region labels
+        public Dictionary<byte, int> Labels { get; private set; }
+
+        public void FindLabels()
+        {
+            Labels.Clear();
+            InputProcessor inputProcessor = new InputProcessor(TestLabel);
+            int oldCounter = Counter;
+            for(Counter = 0; Counter < Steps.Count; ++Counter)
+            {
+                inputProcessor.ProcessKey(Steps[Counter]);
+            }
+            Counter = oldCounter;
+        }
+
+        private bool TestLabel(byte key, byte[] par)
+        {
+            if(key == 76)
+            {
+                Labels.Add(par[1], Counter + 1);
+            }
+            return true;
+        }
+        #endregion
     }
 }

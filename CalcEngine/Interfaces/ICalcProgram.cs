@@ -18,6 +18,7 @@
 // along with CasaSoft Calc.  
 // If not, see <http://www.gnu.org/licenses/>.
 
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Casasoft.Calc
@@ -30,6 +31,8 @@ namespace Casasoft.Calc
         void RST();
         void SST();
         void BST();
+        void GTO(int step);
+        void GTO_Label(byte label);
         void SBR(int step);
         void RTN();
         void INS();
@@ -41,5 +44,7 @@ namespace Casasoft.Calc
         void Put(byte b);
         void Add();
         void GoNext();
+        Dictionary<byte, int> Labels { get; }
+        void FindLabels();
     }
 }

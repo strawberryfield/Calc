@@ -114,6 +114,7 @@ namespace Casasoft.Calc
             {
                 case 31:
                     OperatingMode = OperatingMode.Interactive;
+                    Programs.Current.FindLabels();
                     break;
                 case 41:
                     Programs.Current.GoNext();
@@ -325,7 +326,7 @@ namespace Casasoft.Calc
                     case 61:
                         if(par[0] == 1)
                         {
-                            // todo goto label
+                            Programs.Current.GTO_Label(par[1]);
                         }
                         else
                         {
