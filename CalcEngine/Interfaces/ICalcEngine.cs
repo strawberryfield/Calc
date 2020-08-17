@@ -30,5 +30,15 @@ namespace Casasoft.Calc
         void EnterKey(byte key);
         string GetDisplayString();
         string About();
+
+        void SaveProgram(string filename);
+        void SaveProgram(string filename, int n);
+
+        void LoadProgram(string filename);
+        void LoadProgram(string filename, int n);
+
+        void SaveMemories(string filename);
+        void LoadMemories(string filename);
+
     }
 }

@@ -27,24 +27,14 @@ namespace Casasoft.Calc
     public interface IDataStorage
     {
         void CMS();
-
         void STO(int r, double v);
-
         double RCL(int r);
-  
-
         void SUM(int r, double v);
-
         void INV_SUM(int r, double v);
-
         void PRD(int r, double v);
-
         void INV_PRD(int r, double v);
-
         void Inc(int r);
-
         void Dec(int r);
-
         double EXC(int r, double v);
 
 
@@ -63,5 +53,8 @@ namespace Casasoft.Calc
 
         double EXC_ind(int r, double v);
         #endregion
+
+        string Serialize();
+        void Deserialize(string s);
     }
 }

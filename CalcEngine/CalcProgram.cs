@@ -18,8 +18,10 @@
 // along with CasaSoft Calc.  
 // If not, see <http://www.gnu.org/licenses/>.
 
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Casasoft.Calc
 {
@@ -118,6 +120,28 @@ namespace Casasoft.Calc
                 Labels.Add(par[1], Counter + 1);
             }
             return true;
+        }
+        #endregion
+
+        #region load/save
+        public string Serialize()
+        {
+            StringBuilder sb = new StringBuilder();
+            for(int j=0; j < Steps.Count; ++j)
+            {
+                sb.Append($"{Steps[j]:00},");
+            }
+            return sb.ToString();
+        }
+
+        public void Deserialize(string s)
+        {
+            Steps.Clear();
+            string[] codes = s.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach(string st in codes)
+            {
+                Steps.Add(byte.Parse(st));
+            }
         }
         #endregion
     }

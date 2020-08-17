@@ -20,7 +20,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Casasoft.Calc
 {
@@ -39,7 +41,7 @@ namespace Casasoft.Calc
         public void CMS() => db.Clear();
 
         public void STO(int r, double v) => db[r] = v;
- 
+
         public double RCL(int r)
         {
             double ret;
@@ -82,6 +84,36 @@ namespace Casasoft.Calc
         public void INV_PRD_ind(int r, double v) => INV_PRD(getReg(r), v);
 
         public double EXC_ind(int r, double v) => EXC(getReg(r), v);
+        #endregion
+
+        #region load/save
+        public string Serialize()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (KeyValuePair<int, double> entry in db)
+            {
+                sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "{0};{1}", new object[]
+                {
+                    entry.Key, entry.Value
+                }));
+            }
+            return sb.ToString();
+        }
+
+        public void Deserialize(string s)
+        {
+            db.Clear();
+            string[] memories = s.Split(
+                new[] { Environment.NewLine },
+                StringSplitOptions.RemoveEmptyEntries
+            );
+
+            foreach(string mv in memories)
+            {
+                int sep = mv.IndexOf(';');
+                db.Add(int.Parse(mv.Substring(0, sep)), double.Parse(mv.Substring(sep + 1)));
+            }
+        }
         #endregion
     }
 }

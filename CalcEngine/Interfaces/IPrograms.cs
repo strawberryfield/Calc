@@ -27,5 +27,6 @@ namespace Casasoft.Calc
     {
         int ActiveProgram { get; set; }
         CalcProgram Current { get; }
+        CalcProgram this[int n] { get; set; }
     }
 }

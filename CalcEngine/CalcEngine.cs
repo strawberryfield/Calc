@@ -20,6 +20,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace Casasoft.Calc
@@ -78,6 +79,12 @@ namespace Casasoft.Calc
             inputProcessor = new InputProcessor(ProcessCommand);
             OperatingMode = OperatingMode.Interactive;
             inputProcessor.OperatingMode = OperatingMode;
+            LoadConstantMemory();
+        }
+
+        ~CalcEngine()
+        {
+            SaveConstantMemory();
         }
 
         public string GetDisplayString()
@@ -427,6 +434,51 @@ namespace Casasoft.Calc
                 default:
                     break;
             }
+        }
+        #endregion
+
+        #region load/save
+        public void SaveProgram(string filename) => File.WriteAllText(filename, Programs.Current.Serialize());
+        public void SaveProgram(string filename, int n) => File.WriteAllText(filename, Programs[n].Serialize());
+
+        public void LoadProgram(string filename) => Programs.Current.Deserialize(File.ReadAllText(filename));
+        public void LoadProgram(string filename, int n) => Programs[n].Deserialize(File.ReadAllText(filename));
+
+        public void SaveMemories(string filename) => File.WriteAllText(filename, Memories.Serialize());
+        public void LoadMemories(string filename) => Memories.Deserialize(File.ReadAllText(filename));
+
+        private string ProfilePath()
+        {
+            string p = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "Casasoft\\Calc");
+            Directory.CreateDirectory(p);
+            return p;
+        }
+
+        private string CmPrgFilename() => Path.Combine(ProfilePath(), "CM_Program.Txt");
+        private string CmMemFilename() => Path.Combine(ProfilePath(), "CM_Memories.Txt");
+
+        private void SaveConstantMemory()
+        {
+            SaveProgram(CmPrgFilename(), 0);
+            SaveMemories(CmMemFilename());
+        }
+
+        private void LoadConstantMemory()
+        {
+            string filename = CmPrgFilename();
+            if(File.Exists(filename))
+            {
+                LoadProgram(filename, 0);
+            }
+
+            filename = CmMemFilename();
+            if (File.Exists(filename))
+            {
+                LoadMemories(filename);
+            }
+
         }
         #endregion
     }

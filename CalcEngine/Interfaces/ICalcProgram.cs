@@ -46,5 +46,7 @@ namespace Casasoft.Calc
         void GoNext();
         Dictionary<byte, int> Labels { get; }
         void FindLabels();
+        string Serialize();
+        void Deserialize(string s);
     }
 }

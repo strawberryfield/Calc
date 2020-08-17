@@ -18,6 +18,7 @@
 // along with CasaSoft Calc.  
 // If not, see <http://www.gnu.org/licenses/>.
 
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
@@ -39,5 +40,7 @@ namespace Casasoft.Calc
         }
 
         public CalcProgram Current { get => Progs[ActiveProgram]; }
+        
+        public CalcProgram this[int n] { get => Progs[n]; set => Progs[n] = value; }
     }
 }
