@@ -19,7 +19,6 @@
 // If not, see <http://www.gnu.org/licenses/>.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -294,6 +293,72 @@ namespace Casasoft.Calc
                             Memories.PRD_ind(par[1], Display.GetValue());
                         break;
 
+                    // Flags and loops
+                    case 86:
+                        if (InverseFunction)
+                        {
+                            if (par[1] == 40)
+                                Flags.Clear(Convert.ToByte(Memories.RCL(par[2])));
+                            else
+                                Flags.Clear(par[1]);
+                        }
+                        else
+                        {
+                            if (par[1] == 40)
+                                Flags.Set(Convert.ToByte(Memories.RCL(par[2])));
+                            else
+                                Flags.Set(par[1]);
+                        }
+                        break;
+                    case 87:
+                        if (InverseFunction)
+                        {
+                            if (par[1] == 40)
+                            {
+                                if (!Flags.Get(Convert.ToByte(Memories.RCL(par[2]))))
+                                    ProcessJump(par, 3);
+                            }
+                            else
+                            {
+                                if (!Flags.Get(par[1]))
+                                    ProcessJump(par, 2);
+                            }
+                        }
+                        else
+                        {
+                            if (par[1] == 40)
+                            {
+                                if (Flags.Get(Convert.ToByte(Memories.RCL(par[2]))))
+                                    ProcessJump(par, 3);
+                            }
+                            else
+                            {
+                                if (Flags.Get(par[1]))
+                                    ProcessJump(par, 2);
+                            }
+                        }
+                        break;
+                    case 97:
+                        int rx = par[1] == 40 ? Convert.ToInt32(Memories.RCL(par[2])) : par[1];
+                        if (Memories.RCL(rx) != 0)
+                        {
+                            if (Memories.RCL(rx) > 0)
+                                Memories.Dec(rx);
+                            else
+                                Memories.Inc(rx);
+                        }
+                        if (InverseFunction)
+                        {
+                            if (Memories.RCL(rx) == 0)
+                                ProcessJump(par, par[1] == 40 ? 3 : 2);
+                        }
+                        else
+                        {
+                            if (Memories.RCL(rx) != 0)
+                                ProcessJump(par, par[1] == 40 ? 3 : 2);
+                        }
+                        break;
+
                     //Programming
                     case 31:
                         if (OperatingMode == OperatingMode.Interactive)
@@ -303,9 +368,11 @@ namespace Casasoft.Calc
                         break;
                     case 81:
                         Programs.Current.RST();
+                        Flags.Clear();
                         break;
                     case 29:
                         Programs.Current.CP();
+                        Flags.Clear();
                         break;
                     case 36:
                         Programs.ActiveProgram = par[1];

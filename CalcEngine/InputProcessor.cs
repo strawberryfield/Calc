@@ -37,11 +37,13 @@ namespace Casasoft.Calc
         private enum status
         {
             WaitForCommand, WaitForByteParameter, WaitForByteParameterNoInd,
-            WaitForSecondDigit, WaitForDigitParameter, WaitForAddress, WaitForLabel
+            WaitForSecondDigit, WaitForDigitParameter, WaitForAddress,
+            WaitForLabel
         }
         private status currentStatus;
 
-        private byte[] CommandsWithoutParameters = {
+        private byte[] CommandsWithoutParameters =
+        {
             11,12,13,14,15,16,17,18,19,10,
             21,23,24,25,26,27,28,29,20,
             31,32,33,34,35,37,38,39,30,
@@ -53,14 +55,20 @@ namespace Casasoft.Calc
             91,92,93,94,95,96,98,99,90
         };
 
-        private byte[] CommandsWithByteParameter = {
+        private byte[] CommandsWithByteParameter =
+        {
             36, 42, 43, 44, 48, 49, 40, 69,
             62, 63, 64, 72, 73, 74, 82, 83, 84
         };
 
         private byte[] JumpCommands =
         {
-            61, 71, 67, 77 
+            61, 71, 67, 77
+        };
+
+        private byte[] CommandsWithSingleDigitParameter =
+        {
+            86, 87, 97
         };
 
         private Dictionary<byte, byte> IndirectTransform = new Dictionary<byte, byte>()
@@ -72,7 +80,7 @@ namespace Casasoft.Calc
             { 48, 63 },
             { 49, 64 },
             { 69, 84 }
-       };
+        };
 
         public InputProcessor(Func<byte, byte[], bool> commandProcessor)
         {
@@ -89,9 +97,9 @@ namespace Casasoft.Calc
             {
                 case status.WaitForCommand:
                     // Transforms INV SBR to RTN
-                    if(AfterINV)
+                    if (AfterINV)
                     {
-                        if(key == 71)
+                        if (key == 71)
                         {
                             key = 92;
                         }
@@ -127,7 +135,14 @@ namespace Casasoft.Calc
                         parameters[0] = 1;
                         currentStatus = status.WaitForAddress;
                     }
-                    else if(key == 22)
+                    else if (CommandsWithSingleDigitParameter.Contains(key))
+                    {
+                        currentCommand = key;
+                        parameters[0] = 1;
+                        parameters[1] = 0;
+                        currentStatus = status.WaitForDigitParameter;
+                    }
+                    else if (key == 22)
                     {
                         AfterINV = true;
                     }
@@ -156,8 +171,7 @@ namespace Casasoft.Calc
                     parameters[parameters[0]] = key;
                     if (key > 9)
                     {
-                        commandProcessor(currentCommand, parameters);
-                        currentStatus = status.WaitForCommand;
+                        HandleSecondParameter();
                     }
                     else
                     {
@@ -174,11 +188,22 @@ namespace Casasoft.Calc
                     else
                     {
                         parameters[parameters[0]] = Convert.ToByte(parameters[parameters[0]] * 10 + key);
-                        commandProcessor(currentCommand, parameters);
-                        currentStatus = status.WaitForCommand;
+                        HandleSecondParameter();
                     }
                     break;
                 case status.WaitForDigitParameter:
+                    if (key == 40)
+                    {
+                        parameters[0] = 2;
+                        parameters[1] = key;
+                        currentStatus = status.WaitForByteParameterNoInd;
+                    }
+                    else
+                    {
+                        parameters[0] = 1;
+                        parameters[1] = key;
+                        HandleSecondParameter();
+                    }
                     break;
                 case status.WaitForAddress:
                     if (key == 40)
@@ -215,6 +240,21 @@ namespace Casasoft.Calc
                 default:
                     break;
             }
+        }
+
+        private void HandleSecondParameter()
+        {
+            if ((currentCommand == 87 || currentCommand == 97) && parameters[0] <= 2)
+            {
+                parameters[0]++;
+                currentStatus = status.WaitForAddress;
+            }
+            else
+            {
+                commandProcessor(currentCommand, parameters);
+                currentStatus = status.WaitForCommand;
+            }
+
         }
     }
 }
