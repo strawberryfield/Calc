@@ -36,6 +36,11 @@ namespace Casasoft.Calc
         Programs Programs { get; }
 
         /// <summary>
+        /// Array of flags
+        /// </summary>
+        Flags Flags { get; }
+
+        /// <summary>
         /// Display manager
         /// </summary>
         Display Display { get; set; }

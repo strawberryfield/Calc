@@ -61,6 +61,7 @@ namespace Casasoft.Calc
         public DataStorage Memories { get; set; }
         public Display Display { get; set; }
         public Programs Programs { get; private set; }
+        public Flags Flags { get; private set; }
 
         public string About() => "Casasoft Calc";
 
@@ -68,12 +69,14 @@ namespace Casasoft.Calc
         {
             Memories = new DataStorage();
             Programs = new Programs();
+            Flags = new Flags();
             AritmeticStack = new Stack<AritmeticStackItem>();
+            Display = new Display();
+
             BracketLevel = 0;
             InverseFunction = false;
             TrigMode = AngleUnits.Rad;
             t = 0;
-            Display = new Display();
             inputProcessor = new InputProcessor(ProcessCommand);
             OperatingMode = OperatingMode.Interactive;
             inputProcessor.OperatingMode = OperatingMode;
