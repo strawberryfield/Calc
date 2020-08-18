@@ -59,7 +59,6 @@ namespace Casasoft.Calc
         private OperatingMode OperatingMode;
 
         public DataStorage Memories { get; set; }
-        public List<byte> Steps;
         public Display Display { get; set; }
         public Programs Programs { get; private set; }
 
@@ -69,7 +68,6 @@ namespace Casasoft.Calc
         {
             Memories = new DataStorage();
             Programs = new Programs();
-            Steps = new List<byte>();
             AritmeticStack = new Stack<AritmeticStackItem>();
             BracketLevel = 0;
             InverseFunction = false;
@@ -247,7 +245,12 @@ namespace Casasoft.Calc
                     case 89:
                         Display.SetValue(Math.PI);
                         break;
-
+                    case 69:
+                        OP(par[1]);
+                        break;
+                    case 84:
+                        OP(Convert.ToByte(Memories.RCL(par[1])));
+                        break;
                     case 38:
                         Display.SetValue(InverseFunction ?
                             rad2AngularUnit(Math.Asin(Display.GetValue())) :
@@ -345,6 +348,30 @@ namespace Casasoft.Calc
                         break;
                     case 83:
                         Programs.Current.GTO(Convert.ToInt32(Memories.RCL(par[1])));
+                        break;
+                    case 67:
+                        if (InverseFunction)
+                        {
+                            if (Display.GetValue() != t)
+                                ProcessJump(par);
+                        }
+                        else
+                        {
+                            if (Display.GetValue() == t)
+                                ProcessJump(par);
+                        }
+                        break;
+                    case 77:
+                        if (InverseFunction)
+                        {
+                            if (Display.GetValue() < t)
+                                ProcessJump(par);
+                        }
+                        else
+                        {
+                            if (Display.GetValue() >= t)
+                                ProcessJump(par);
+                        }
                         break;
                     case 91:
                         switch (OperatingMode)
@@ -549,6 +576,45 @@ namespace Casasoft.Calc
                 LoadMemories(filename);
             }
 
+        }
+        #endregion
+
+        #region built-in functions
+        private void OP(byte functionCode)
+        {
+            switch (functionCode)
+            {
+                case 10:
+                    Display.SetValue(Math.Sign(Display.GetValue()));
+                    break;
+
+                case 20:
+                case 21:
+                case 22:
+                case 23:
+                case 24:
+                case 25:
+                case 26:
+                case 27:
+                case 28:
+                case 29:
+                    Memories.Inc(functionCode - 20);
+                    break;
+                case 30:
+                case 31:
+                case 32:
+                case 33:
+                case 34:
+                case 35:
+                case 36:
+                case 37:
+                case 38:
+                case 39:
+                    Memories.Dec(functionCode - 30);
+                    break;
+                default:
+                    break;
+            }
         }
         #endregion
     }
