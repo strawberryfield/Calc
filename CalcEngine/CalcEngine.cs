@@ -32,24 +32,7 @@ namespace Casasoft.Calc
     ProgId("Casasoft.CalcEngine")]
     public class CalcEngine : ICalcEngine
     {
-        private enum Operands { Plus, Minus, Times, Div, Exponent }
-
-        private class AritmeticStackItem
-        {
-            public double Value;
-            public Operands Operand;
-            public int Priority;
-
-            public AritmeticStackItem(double v, Operands o, int p)
-            {
-                Value = v;
-                Operand = o;
-                Priority = p;
-            }
-        }
-
-        private Stack<AritmeticStackItem> AritmeticStack;
-        private int BracketLevel;
+        private ArithmeticStack ArithmeticStack;
         private InputProcessor inputProcessor;
 
         private bool InverseFunction;
@@ -70,10 +53,9 @@ namespace Casasoft.Calc
             Memories = new DataStorage();
             Programs = new Programs();
             Flags = new Flags();
-            AritmeticStack = new Stack<AritmeticStackItem>();
             Display = new Display();
+            ArithmeticStack = new ArithmeticStack(Display);
 
-            BracketLevel = 0;
             InverseFunction = false;
             TrigMode = AngleUnits.Rad;
             t = 0;
@@ -163,34 +145,29 @@ namespace Casasoft.Calc
                     // Clear
                     case 25:
                         Display.Clear();
-                        AritmeticStack.Clear();
-                        BracketLevel = 0;
+                        ArithmeticStack.Clear();
                         break;
 
                     // Equal
                     case 95:
-                        while (AritmeticStack.Count > 0)
-                        {
-                            processStack();
-                        }
-                        BracketLevel = 0;
+                        ArithmeticStack.Equal();
                         break;
 
                     // Operators
                     case 85:
-                        processOperator(Operands.Plus, BracketLevel + 1);
+                        ArithmeticStack.ProcessOperator(Operands.Plus);
                         break;
                     case 75:
-                        processOperator(Operands.Minus, BracketLevel + 1);
+                        ArithmeticStack.ProcessOperator(Operands.Minus);
                         break;
                     case 65:
-                        processOperator(Operands.Times, BracketLevel + 2);
+                        ArithmeticStack.ProcessOperator(Operands.Times);
                         break;
                     case 55:
-                        processOperator(Operands.Div, BracketLevel + 2);
+                        ArithmeticStack.ProcessOperator(Operands.Div);
                         break;
                     case 45:
-                        processOperator(Operands.Exponent, BracketLevel + 3);
+                        ArithmeticStack.ProcessOperator(Operands.Exponent);
                         break;
 
                     case 32:
@@ -201,11 +178,11 @@ namespace Casasoft.Calc
 
                     // Brackets
                     case 53:
-                        BracketLevel += 10;
+                        ArithmeticStack.IncreaseBracketLevel();
                         break;
                     case 54:
-                        processStack();
-                        BracketLevel -= 10;
+                        ArithmeticStack.ProcessStack();
+                        ArithmeticStack.IncreaseBracketLevel();
                         break;
 
                     // Angular units
@@ -496,45 +473,6 @@ namespace Casasoft.Calc
             TrigMode == AngleUnits.Rad ? a :
             a * (TrigMode == AngleUnits.Deg ? 180 : 200) / Math.PI;
 
-        private void processOperator(Operands op, int priority)
-        {
-            if (AritmeticStack.Count > 0)
-            {
-                if (AritmeticStack.Peek().Priority >= priority)
-                {
-                    processStack();
-                }
-            }
-            AritmeticStack.Push(new AritmeticStackItem(Display.GetValue(), op, priority));
-            Display.AutoClear();
-        }
-
-        private void processStack()
-        {
-            if (AritmeticStack.Count == 0) return;
-
-            AritmeticStackItem ts = AritmeticStack.Pop();
-            switch (ts.Operand)
-            {
-                case Operands.Plus:
-                    Display.SetValue(ts.Value + Display.GetValue());
-                    break;
-                case Operands.Minus:
-                    Display.SetValue(ts.Value - Display.GetValue());
-                    break;
-                case Operands.Times:
-                    Display.SetValue(ts.Value * Display.GetValue());
-                    break;
-                case Operands.Div:
-                    Display.SetValue(ts.Value / Display.GetValue());
-                    break;
-                case Operands.Exponent:
-                    Display.SetValue(Math.Pow(ts.Value, Display.GetValue()));
-                    break;
-                default:
-                    break;
-            }
-        }
         #endregion
 
         #region load/save

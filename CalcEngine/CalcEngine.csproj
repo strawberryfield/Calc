@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArithmeticStack.cs" />
     <Compile Include="CalcEngine.cs" />
     <Compile Include="DataStorage.cs" />
     <Compile Include="Display.cs" />
