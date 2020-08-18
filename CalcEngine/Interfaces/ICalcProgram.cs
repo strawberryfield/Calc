@@ -70,9 +70,15 @@ namespace Casasoft.Calc
         void SBR(int step);
 
         /// <summary>
+        /// Go to label and save return point
+        /// </summary>
+        /// <param name="label"></param>
+        void SBR_Label(byte label);
+        /// <summary>
         /// Returns to saved point
         /// </summary>
-        void RTN();
+        /// <returns>true if program must stop</returns>
+        bool RTN();
 
         /// <summary>
         /// Inserts a program step
@@ -107,7 +113,7 @@ namespace Casasoft.Calc
         /// </summary>
         /// <returns></returns>
         bool IsEof();
-        
+
         /// <summary>
         /// Adds an empty step
         /// </summary>

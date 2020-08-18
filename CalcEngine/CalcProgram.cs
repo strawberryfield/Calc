@@ -73,7 +73,24 @@ namespace Casasoft.Calc
             GTO(step);
         }
 
-        public void RTN() => GTO(Returns.Pop());
+        public void SBR_Label(byte label)
+        {
+            int addr;
+            if (Labels.TryGetValue(label, out addr))
+            {
+                SBR(addr);
+            }
+        }
+        public bool RTN()
+        {
+            bool stop = false;
+            if (Returns.Count > 0)
+                GTO(Returns.Pop());
+            else
+                stop = true;
+
+            return stop;
+        }
 
         public void INS() => Steps.Insert(Counter, 0);
 
@@ -115,7 +132,7 @@ namespace Casasoft.Calc
         {
             if(key == 76)
             {
-                Labels.Add(par[1], Counter + 1);
+                Labels.Add(par[1], Counter);
             }
             return true;
         }
@@ -140,6 +157,7 @@ namespace Casasoft.Calc
             {
                 Steps.Add(byte.Parse(st));
             }
+            FindLabels();
         }
         #endregion
     }

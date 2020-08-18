@@ -32,6 +32,7 @@ namespace Casasoft.Calc
         private byte[] parameters;
         private Func<byte, byte[], bool> commandProcessor;
         internal OperatingMode OperatingMode;
+        private bool AfterINV;
 
         private enum status
         {
@@ -42,19 +43,24 @@ namespace Casasoft.Calc
 
         private byte[] CommandsWithoutParameters = {
             11,12,13,14,15,16,17,18,19,10,
-            21,22,23,24,25,26,27,28,29,20,
+            21,23,24,25,26,27,28,29,20,
             31,32,33,34,35,37,38,39,30,
             41,45,46,47,
             51,52,53,54,55,56,57,59,50,
             65,66,68,60,
             75,78,79,70,
             81,85,88,89,80,
-            91,93,94,95,96,98,99,90
+            91,92,93,94,95,96,98,99,90
         };
 
         private byte[] CommandsWithByteParameter = {
             36, 42, 43, 44, 48, 49, 40, 69,
             62, 63, 64, 72, 73, 74, 82, 83, 84
+        };
+
+        private byte[] JumpCommands =
+        {
+            61, 71, 67, 77 
         };
 
         private Dictionary<byte, byte> IndirectTransform = new Dictionary<byte, byte>()
@@ -74,6 +80,7 @@ namespace Casasoft.Calc
             parameters = new byte[5];
             this.commandProcessor = commandProcessor;
             OperatingMode = OperatingMode.Interactive;
+            AfterINV = false;
         }
 
         public void ProcessKey(byte key)
@@ -81,6 +88,21 @@ namespace Casasoft.Calc
             switch (currentStatus)
             {
                 case status.WaitForCommand:
+                    // Transforms INV SBR to RTN
+                    if(AfterINV)
+                    {
+                        if(key == 71)
+                        {
+                            key = 92;
+                        }
+                        else
+                        {
+                            commandProcessor(22, null);
+                        }
+                        AfterINV = false;
+                    }
+
+                    // Other commands
                     if (key < 10 || CommandsWithoutParameters.Contains(key))
                     {
                         commandProcessor(key, null);
@@ -99,11 +121,15 @@ namespace Casasoft.Calc
                         parameters[1] = 0;
                         currentStatus = status.WaitForLabel;
                     }
-                    else if (key == 61 || key == 71)
+                    else if (JumpCommands.Contains(key))
                     {
                         currentCommand = key;
                         parameters[0] = 1;
                         currentStatus = status.WaitForAddress;
+                    }
+                    else if(key == 22)
+                    {
+                        AfterINV = true;
                     }
                     break;
                 case status.WaitForByteParameter:

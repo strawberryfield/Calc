@@ -331,7 +331,7 @@ namespace Casasoft.Calc
                         Programs.ActiveProgram = Convert.ToInt32(Memories.RCL(par[1]));
                         break;
                     case 61:
-                        if(par[0] == 1)
+                        if (par[0] == 1)
                         {
                             Programs.Current.GTO_Label(par[1]);
                         }
@@ -339,6 +339,9 @@ namespace Casasoft.Calc
                         {
                             Programs.Current.GTO(par[1] * 100 + par[2]);
                         }
+                        break;
+                    case 71:
+                        ProcessSubroutine(par);
                         break;
                     case 83:
                         Programs.Current.GTO(Convert.ToInt32(Memories.RCL(par[1])));
@@ -359,6 +362,25 @@ namespace Casasoft.Calc
                                 break;
                         }
                         break;
+                    case 92:
+                        if (OperatingMode == OperatingMode.Run)
+                        {
+                            if (Programs.Current.RTN())
+                                OperatingMode = OperatingMode.Interactive;
+                        }
+                        break;
+                    case 10:
+                    case 11:
+                    case 12:
+                    case 13:
+                    case 14:
+                    case 15:
+                    case 16:
+                    case 17:
+                    case 18:
+                    case 19:
+                        ProcessSubroutine(key);
+                        break;
                     default:
                         break;
                 }
@@ -377,7 +399,7 @@ namespace Casasoft.Calc
 
         private void Run()
         {
-            while(OperatingMode == OperatingMode.Run)
+            while (OperatingMode == OperatingMode.Run)
             {
                 EnterKey(Programs.Current.GetCurrent());
                 if (Programs.Current.IsEof())
@@ -386,6 +408,54 @@ namespace Casasoft.Calc
                     Programs.Current.SST();
             }
         }
+
+        #region jumps
+        private void ProcessJump(byte[] par, int offset = 1, bool isSBR = false)
+        {
+            int addr = 0;
+            if (par[offset] == 40)
+            {
+                // Indirect jump
+                addr = Convert.ToInt32(Memories.RCL(par[offset + 1]));
+                if (isSBR)
+                    Programs.Current.SBR(addr);
+                else
+                    Programs.Current.GTO(addr);
+            }
+            else if (par[offset] < 10)
+            {
+                // Absolute jump
+                addr = par[offset] * 100 + par[offset + 1];
+                if (isSBR)
+                    Programs.Current.SBR(addr);
+                else
+                    Programs.Current.GTO(addr);
+
+            }
+            else
+            {
+                // Jump to label
+                if (isSBR)
+                    Programs.Current.SBR_Label(par[offset]);
+                else
+                    Programs.Current.GTO_Label(par[offset]);
+            }
+        }
+
+        private void ProcessSubroutine(byte[] par)
+        {
+            ProcessJump(par, 1, OperatingMode == OperatingMode.Run);
+            if (OperatingMode == OperatingMode.Interactive)
+            {
+                OperatingMode = OperatingMode.Run;
+                Programs.Current.SST();
+                Run();
+            }
+
+        }
+
+        private void ProcessSubroutine(byte label) => ProcessSubroutine(new byte[] { 1, label });
+        #endregion
 
         #region math utilities
         private double AngularUnit2rad(double a) =>
@@ -468,7 +538,7 @@ namespace Casasoft.Calc
         private void LoadConstantMemory()
         {
             string filename = CmPrgFilename();
-            if(File.Exists(filename))
+            if (File.Exists(filename))
             {
                 LoadProgram(filename, 0);
             }
