@@ -29,6 +29,7 @@ namespace Casasoft.Calc
     public partial class CalcForm : Form
     {
         public CalcEngine CalcEngine { get; private set; }
+        private ProgramCard ProgramCard;
         private bool SecondFunction;
 
         public CalcForm()
@@ -37,20 +38,40 @@ namespace Casasoft.Calc
             CalcEngine = new CalcEngine();
             txtDisplay.Text = CalcEngine.Display.GetText();
             SecondFunction = false;
+
+            ProgramCard = new ProgramCard();
+            ProgramCard.Top = txtDisplay.Top + txtDisplay.Height + 12;
+            ProgramCard.Left = txtDisplay.Left;
+            ProgramCard.ClickLabel += ProgramCard_MouseClick;
+            Controls.Add(ProgramCard);
+
             makeButtons();
+        }
+
+        private void ProgramCard_MouseClick(object sender, EventArgs e)
+        {
+            TextBox caller = (TextBox)sender;
+            ProgramCardEdit edt = new ProgramCardEdit(caller);
+            DialogResult res = edt.ShowDialog();
+            if(res == DialogResult.OK)
+            {
+                caller.Text = edt.Value;
+            }
         }
 
         private void makeButtons()
         {
             ButtonsList buttons = new ButtonsList();
+            int startTop = ProgramCard.Top + ProgramCard.Height;
+            int startLeft = txtDisplay.Left;
 
             for (int row = 0; row < 9; ++row)
             {
                 for (int col = 0; col < 5; ++col)
                 {
                     CalcButton b = new CalcButton(buttons.ButtonDefs[row][col]);
-                    b.Top = 65 + row * 36;
-                    b.Left = 12 + col * 51;
+                    b.Top = startTop + row * 36;
+                    b.Left = startLeft + col * 50;
                     Button button = (Button)b.Controls["button"];
                     button.Click += new EventHandler(button_Click);
                     Controls.Add(b);

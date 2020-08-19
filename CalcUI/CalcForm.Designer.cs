@@ -65,17 +65,17 @@ namespace Casasoft.Calc
             this.txtDisplay.Text = "0.00";
             this.txtDisplay.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // CalcFormNew
+            // CalcForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(274, 406);
+            this.ClientSize = new System.Drawing.Size(274, 452);
             this.Controls.Add(this.txtDisplay);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximizeBox = false;
-            this.Name = "CalcFormNew";
+            this.Name = "CalcForm";
             this.Text = "Casasoft Calc";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CalcForm_KeyPress);
             this.ResumeLayout(false);
