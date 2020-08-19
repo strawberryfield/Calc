@@ -77,6 +77,7 @@ namespace Casasoft.Calc
             this.MaximizeBox = false;
             this.Name = "CalcForm";
             this.Text = "Casasoft Calc";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CalcForm_FormClosing);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.CalcForm_KeyPress);
             this.ResumeLayout(false);
             this.PerformLayout();

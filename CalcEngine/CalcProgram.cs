@@ -21,7 +21,7 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
+using System.Text.Json;
 
 namespace Casasoft.Calc
 {
@@ -33,6 +33,7 @@ namespace Casasoft.Calc
         private List<byte> Steps;
         public int Counter { get; private set; }
         private Stack<int> Returns;
+        public Json.Card Card { get; set; }
 
         public CalcProgram()
         {
@@ -41,6 +42,7 @@ namespace Casasoft.Calc
             Returns = new Stack<int>();
             Counter = 0;
             Labels = new Dictionary<byte, int>();
+            Card = new Json.Card();
         }
 
         public void CP()
@@ -139,25 +141,23 @@ namespace Casasoft.Calc
         #endregion
 
         #region load/save
-        public string Serialize()
+        public string Serialize() => JsonSerializer.Serialize(GetForJson());
+
+        public void Deserialize(string s) => SetFromJson(JsonSerializer.Deserialize<Json.Program>(s));
+
+        public Json.Program GetForJson()
         {
-            StringBuilder sb = new StringBuilder();
-            for(int j=0; j < Steps.Count; ++j)
-            {
-                sb.Append($"{Steps[j]:00},");
-            }
-            return sb.ToString();
+            Json.Program pgm = new Json.Program();
+            pgm.Card = Card;
+            pgm.Code = Steps.ToArray();
+            return pgm;
         }
 
-        public void Deserialize(string s)
+        public void SetFromJson(Json.Program pgm)
         {
+            Card = pgm.Card;
             Steps.Clear();
-            string[] codes = s.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach(string st in codes)
-            {
-                Steps.Add(byte.Parse(st));
-            }
-            FindLabels();
+            Steps.AddRange(pgm.Code);
         }
         #endregion
     }

@@ -18,6 +18,7 @@
 // along with CasaSoft Calc.  
 // If not, see <http://www.gnu.org/licenses/>.
 
+using Casasoft.Calc.Json;
 using System;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -56,5 +57,36 @@ namespace Casasoft.Calc
             }
         }
 
+        public void SetFromJson(Card json)
+        {
+            txtProgram.Text = json.Name;
+            txtA.Text = json.A;
+            txtB.Text = json.B;
+            txtC.Text = json.C;
+            txtD.Text = json.D;
+            txtE.Text = json.E;
+            txtA1.Text = json.A1;
+            txtB1.Text = json.B1;
+            txtC1.Text = json.C1;
+            txtD1.Text = json.D1;
+            txtE1.Text = json.E1;
+        }
+
+        public Card GetForJson()
+        {
+            Card json = new Card();
+            json.Name = txtProgram.Text;
+            json.A = txtA.Text;
+            json.B = txtB.Text;
+            json.C = txtC.Text;
+            json.D = txtD.Text;
+            json.E = txtE.Text;
+            json.A1 = txtA1.Text;
+            json.B1 = txtB1.Text;
+            json.C1 = txtC1.Text;
+            json.D1 = txtD1.Text;
+            json.E1 = txtE1.Text;
+            return json;
+        }
     }
 }

@@ -42,6 +42,7 @@ namespace Casasoft.Calc
             ProgramCard = new ProgramCard();
             ProgramCard.Top = txtDisplay.Top + txtDisplay.Height + 12;
             ProgramCard.Left = txtDisplay.Left;
+            ProgramCard.SetFromJson(CalcEngine.Programs[0].Card);
             Controls.Add(ProgramCard);
 
             makeButtons();
@@ -193,7 +194,10 @@ namespace Casasoft.Calc
             }
         }
 
-
+        private void CalcForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            CalcEngine.Programs.Current.Card = ProgramCard.GetForJson();
+        }
     }
 
 }
