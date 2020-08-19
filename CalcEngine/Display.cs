@@ -32,10 +32,16 @@ namespace Casasoft.Calc
     {
         private string currentText;
         private double currentValue;
+        private int fix;
+
+        private enum EEmode { None, EE, Eng }
+        EEmode Emode;
 
         public Display()
         {
             Clear();
+            fix = -1;
+            Emode = EEmode.None;
         }
 
         public void Clear()
@@ -57,16 +63,26 @@ namespace Casasoft.Calc
 
         public double GetValue() => currentValue;
 
-        public string GetText() => string.Format(CultureInfo.InvariantCulture, "{0}", currentValue);
+        public string GetText()
+        {
+            string format = "{0}";
+            if (fix >= 0)
+            {
+                format = "{0:0." + new string('0', fix) + "}";
+            }
 
-        public void EnterKey(byte key)
+            return string.Format(CultureInfo.InvariantCulture, format, currentValue);
+        }
+
+        public void EnterKey(byte key) => EnterKey(key, 0);
+        public void EnterKey(byte key, byte par)
         {
             switch (key)
             {
                 case 24:
                     Clear();
                     break;
-                case 94:
+                case 94:  // change sign
                     if (!string.IsNullOrWhiteSpace(currentText) && currentText.Substring(0, 1) != "-")
                     {
                         currentText = currentText.Substring(1);
@@ -77,18 +93,24 @@ namespace Casasoft.Calc
                     }
                     currentValue = -currentValue;
                     break;
-                case 93:
+                case 93:  // dot
                     if (!currentText.Contains('.'))
                     {
                         currentText += '.';
                     }
+                    break;
+                case 58:  // Fix
+                    fix = par > 8 ? -1 : par;
+                    break;
+                case 158: // INV Fix
+                    fix = -1;
                     break;
                 default:
                     if (key <= 9 && (key != 0 || !string.IsNullOrWhiteSpace(currentText)))
                     {
                         currentText += $"{key}";
                     }
-                    currentValue = string.IsNullOrWhiteSpace(currentText) ? 
+                    currentValue = string.IsNullOrWhiteSpace(currentText) ?
                         0 : Convert.ToDouble(currentText, CultureInfo.InvariantCulture);
                     break;
             }

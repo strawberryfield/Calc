@@ -58,6 +58,13 @@ namespace Casasoft.Calc
         /// Processes keystroke
         /// </summary>
         /// <param name="key"></param>
+        void EnterKey(byte key, byte par);
+
+        /// <summary>
+        /// Processes keystroke
+        /// </summary>
+        /// <param name="key"></param>
         void EnterKey(byte key);
+
     }
 }

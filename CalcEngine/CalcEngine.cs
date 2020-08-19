@@ -20,6 +20,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace Casasoft.Calc
@@ -132,12 +133,25 @@ namespace Casasoft.Calc
             return true;
         }
 
+        private byte[] CommandsForDisplay =
+        {
+            0,1,2,3,4,5,6,7,8,9,
+            24,93,94,
+            52,57,58
+        };
+        private byte[] InvertibleCommandsForDisplay =
+        {
+            52,57,58
+        };
+
         private bool ProcessCommandExec(byte key, byte[] par)
         {
-            if (key <= 9 || key == 93 || key == 94 || key == 24)
+            if (CommandsForDisplay.Contains(key))
             {
                 // Numeric input
-                Display.EnterKey(key);
+                if (InvertibleCommandsForDisplay.Contains(key) && InverseFunction)
+                    key += 100;
+                Display.EnterKey(key, par == null ? (byte)0 : par[1]);
             }
             else switch (key)
                 {
@@ -371,8 +385,12 @@ namespace Casasoft.Calc
                         Flags.Clear();
                         break;
                     case 29:
-                        Programs.Current.CP();
-                        Flags.Clear();
+                        if (OperatingMode == OperatingMode.Interactive)
+                        {
+                            Programs.Current.CP();
+                            Flags.Clear();
+                        }
+                        t = 0;
                         break;
                     case 36:
                         Programs.ActiveProgram = par[1];
@@ -594,6 +612,11 @@ namespace Casasoft.Calc
             {
                 case 10:
                     Display.SetValue(Math.Sign(Display.GetValue()));
+                    break;
+
+                case 16:
+                case 17:
+                    Display.SetValue(999.99);
                     break;
 
                 case 20:

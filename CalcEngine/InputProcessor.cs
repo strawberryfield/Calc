@@ -68,7 +68,7 @@ namespace Casasoft.Calc
 
         private byte[] CommandsWithSingleDigitParameter =
         {
-            86, 87, 97
+            86, 87, 97, 58
         };
 
         private Dictionary<byte, byte> IndirectTransform = new Dictionary<byte, byte>()
@@ -106,6 +106,12 @@ namespace Casasoft.Calc
                         else
                         {
                             commandProcessor(22, null);
+                            if(key == 58)
+                            {
+                                // INV Fix has no parameters
+                                commandProcessor(key, new byte[] { 1, 0 });
+                                return;
+                            }
                         }
                         AfterINV = false;
                     }
