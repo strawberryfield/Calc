@@ -30,38 +30,31 @@ namespace Casasoft.Calc
         public ProgramCard()
         {
             InitializeComponent();
-        }  
 
-        public event EventHandler ClickLabel
+            EventHandler value = ProgramCard_MouseClick;
+            txtA.Click += value;
+            txtB.Click += value;
+            txtC.Click += value;
+            txtD.Click += value;
+            txtE.Click += value;
+            txtA1.Click += value;
+            txtB1.Click += value;
+            txtC1.Click += value;
+            txtD1.Click += value;
+            txtE1.Click += value;
+            txtProgram.Click += value;
+        }
+
+        private void ProgramCard_MouseClick(object sender, EventArgs e)
         {
-            add
+            TextBox caller = (TextBox)sender;
+            ProgramCardEdit edt = new ProgramCardEdit(caller);
+            DialogResult res = edt.ShowDialog();
+            if (res == DialogResult.OK)
             {
-                txtA.Click += value;
-                txtB.Click += value;
-                txtC.Click += value;
-                txtD.Click += value;
-                txtE.Click += value;
-                txtA1.Click += value;
-                txtB1.Click += value;
-                txtC1.Click += value;
-                txtD1.Click += value;
-                txtE1.Click += value;
-                txtProgram.Click += value;
-            }
-            remove
-            {
-                txtA.Click -= value;
-                txtB.Click -= value;
-                txtC.Click -= value;
-                txtD.Click -= value;
-                txtE.Click -= value;
-                txtA1.Click -= value;
-                txtB1.Click -= value;
-                txtC1.Click -= value;
-                txtD1.Click -= value;
-                txtE1.Click -= value;
-                txtProgram.Click -= value;
+                caller.Text = edt.Value;
             }
         }
+
     }
 }

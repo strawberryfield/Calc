@@ -42,21 +42,9 @@ namespace Casasoft.Calc
             ProgramCard = new ProgramCard();
             ProgramCard.Top = txtDisplay.Top + txtDisplay.Height + 12;
             ProgramCard.Left = txtDisplay.Left;
-            ProgramCard.ClickLabel += ProgramCard_MouseClick;
             Controls.Add(ProgramCard);
 
             makeButtons();
-        }
-
-        private void ProgramCard_MouseClick(object sender, EventArgs e)
-        {
-            TextBox caller = (TextBox)sender;
-            ProgramCardEdit edt = new ProgramCardEdit(caller);
-            DialogResult res = edt.ShowDialog();
-            if(res == DialogResult.OK)
-            {
-                caller.Text = edt.Value;
-            }
         }
 
         private void makeButtons()
