@@ -18,11 +18,11 @@
 // along with CasaSoft Calc.  
 // If not, see <http://www.gnu.org/licenses/>.
 
+using Casasoft.Calc.Json;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Runtime.InteropServices;
-using System.Text;
+using System.Text.Json;
 
 namespace Casasoft.Calc
 {
@@ -87,33 +87,17 @@ namespace Casasoft.Calc
         #endregion
 
         #region load/save
-        public string Serialize()
+        private JsonSerializerOptions JsonOptions()
         {
-            StringBuilder sb = new StringBuilder();
-            foreach (KeyValuePair<int, double> entry in db)
-            {
-                sb.AppendLine(string.Format(CultureInfo.InvariantCulture, "{0};{1}", new object[]
-                {
-                    entry.Key, entry.Value
-                }));
-            }
-            return sb.ToString();
+            var ret = new JsonSerializerOptions();
+            ret.Converters.Add(new DictionaryIntDoubleConverter());
+            return ret;
         }
 
-        public void Deserialize(string s)
-        {
-            db.Clear();
-            string[] memories = s.Split(
-                new[] { Environment.NewLine },
-                StringSplitOptions.RemoveEmptyEntries
-            );
+        public string Serialize() => JsonSerializer.Serialize< Dictionary<int, double>>(db, JsonOptions());
 
-            foreach(string mv in memories)
-            {
-                int sep = mv.IndexOf(';');
-                db.Add(int.Parse(mv.Substring(0, sep)), double.Parse(mv.Substring(sep + 1)));
-            }
-        }
+        public void Deserialize(string s) => db = JsonSerializer.Deserialize<Dictionary<int, double>>(s, JsonOptions());
+
         #endregion
     }
 }
