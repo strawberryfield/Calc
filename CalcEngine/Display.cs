@@ -32,7 +32,7 @@ namespace Casasoft.Calc
     {
         private string currentText;
         private double currentValue;
-        private int fix;
+        internal int fix;
 
         private enum EEmode { None, EE, Eng }
         EEmode Emode;

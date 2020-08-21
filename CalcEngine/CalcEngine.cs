@@ -22,6 +22,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text.Json;
 
 namespace Casasoft.Calc
 {
@@ -579,29 +580,27 @@ namespace Casasoft.Calc
             return p;
         }
 
-        private string CmPrgFilename() => Path.Combine(ProfilePath(), "CM_Program.Txt");
-        private string CmMemFilename() => Path.Combine(ProfilePath(), "CM_Memories.Txt");
+        private string ConstantMemoryFilename() => Path.Combine(ProfilePath(), "ConstantMemory.Txt");
 
         private void SaveConstantMemory()
         {
-            SaveProgram(CmPrgFilename(), 0);
-            SaveMemories(CmMemFilename());
+            Json.ConstantMemory CM = new Json.ConstantMemory();
+            CM.Program = Programs[0].GetForJson();
+            CM.Memories = Memories.db;
+            CM.Fix = Display.fix;
+            CM.Eng = false;
+            File.WriteAllText(ConstantMemoryFilename(),
+                JsonSerializer.Serialize<Json.ConstantMemory>(CM, Memories.JsonOptions()));
         }
 
         private void LoadConstantMemory()
         {
-            string filename = CmPrgFilename();
-            if (File.Exists(filename))
-            {
-                LoadProgram(filename, 0);
-            }
-
-            filename = CmMemFilename();
-            if (File.Exists(filename))
-            {
-                LoadMemories(filename);
-            }
-
+            Json.ConstantMemory CM = new Json.ConstantMemory();
+            CM = JsonSerializer.Deserialize<Json.ConstantMemory>(
+                File.ReadAllText(ConstantMemoryFilename()), Memories.JsonOptions());
+            Programs[0].SetFromJson(CM.Program);
+            Memories.db = CM.Memories;
+            Display.fix = CM.Fix;
         }
         #endregion
 

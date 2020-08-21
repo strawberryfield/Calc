@@ -31,7 +31,7 @@ namespace Casasoft.Calc
     ProgId("Casasoft.CalcData")]
     public class DataStorage : IDataStorage
     {
-        private Dictionary<int, double> db;
+        internal Dictionary<int, double> db { get; set; }
 
         public DataStorage()
         {
@@ -87,7 +87,7 @@ namespace Casasoft.Calc
         #endregion
 
         #region load/save
-        private JsonSerializerOptions JsonOptions()
+        internal JsonSerializerOptions JsonOptions()
         {
             var ret = new JsonSerializerOptions();
             ret.Converters.Add(new DictionaryIntDoubleConverter());

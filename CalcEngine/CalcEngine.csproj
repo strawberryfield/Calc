@@ -84,6 +84,7 @@
     <Compile Include="Interfaces\IFlags.cs" />
     <Compile Include="Interfaces\IPrograms.cs" />
     <Compile Include="Json\Card.cs" />
+    <Compile Include="Json\ConstantMemory.cs" />
     <Compile Include="Json\DictionaryIntDoubleConverter.cs" />
     <Compile Include="Json\Program.cs" />
     <Compile Include="Programs.cs" />
