@@ -36,6 +36,7 @@ namespace Casasoft.Calc
         {
             InitializeComponent();
             CalcEngine = new CalcEngine();
+            CalcEngine.Programs.CurrentProgramChanging += ProgramChanging;
             txtDisplay.Text = CalcEngine.Display.GetText();
             SecondFunction = false;
 
@@ -46,6 +47,12 @@ namespace Casasoft.Calc
             Controls.Add(ProgramCard);
 
             makeButtons();
+        }
+
+        private void ProgramChanging(object sender, ProgramChangingEventArgs e)
+        {
+            CalcEngine.Programs[e.OldProgram].Card = ProgramCard.GetForJson();
+            ProgramCard.SetFromJson(CalcEngine.Programs[e.NewProgram].Card);
         }
 
         private void makeButtons()

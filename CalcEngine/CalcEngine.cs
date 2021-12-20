@@ -595,12 +595,15 @@ namespace Casasoft.Calc
 
         private void LoadConstantMemory()
         {
-            Json.ConstantMemory CM = new Json.ConstantMemory();
-            CM = JsonSerializer.Deserialize<Json.ConstantMemory>(
-                File.ReadAllText(ConstantMemoryFilename()), Memories.JsonOptions());
-            Programs[0].SetFromJson(CM.Program);
-            Memories.db = CM.Memories;
-            Display.fix = CM.Fix;
+            if (File.Exists(ConstantMemoryFilename()))
+            {
+                Json.ConstantMemory CM = new Json.ConstantMemory();
+                CM = JsonSerializer.Deserialize<Json.ConstantMemory>(
+                    File.ReadAllText(ConstantMemoryFilename()), Memories.JsonOptions());
+                Programs[0].SetFromJson(CM.Program);
+                Memories.db = CM.Memories;
+                Display.fix = CM.Fix;
+            }
         }
         #endregion
 

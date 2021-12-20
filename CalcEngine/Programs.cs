@@ -18,7 +18,7 @@
 // along with CasaSoft Calc.  
 // If not, see <http://www.gnu.org/licenses/>.
 
-using System.CodeDom;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
@@ -30,17 +30,41 @@ namespace Casasoft.Calc
     public class Programs : IPrograms
     {
         private Dictionary<int, CalcProgram> Progs;
-        public int ActiveProgram { get; set; }
+
+        private int _activeProgram;
+        public int ActiveProgram
+        {
+            get => _activeProgram;
+            set
+            {
+                CurrentProgramChanging(this, new ProgramChangingEventArgs(_activeProgram, value));
+                _activeProgram = value;
+            }
+        }
 
         public Programs()
         {
             Progs = new Dictionary<int, CalcProgram>();
             Progs.Add(0, new CalcProgram());
-            ActiveProgram = 0;
+            _activeProgram = 0;
         }
 
-        public CalcProgram Current { get => Progs[ActiveProgram]; }
-        
+        public CalcProgram Current => Progs[_activeProgram];
+
         public CalcProgram this[int n] { get => Progs[n]; set => Progs[n] = value; }
+
+        public EventHandler<ProgramChangingEventArgs> CurrentProgramChanging;
+    }
+
+    public class ProgramChangingEventArgs
+    {
+        public int OldProgram { get; set; }
+        public int NewProgram { get; set; }
+
+        public ProgramChangingEventArgs(int old, int selected)
+        {
+            OldProgram = old;
+            NewProgram = selected;
+        }
     }
 }
